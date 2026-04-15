@@ -1,0 +1,7 @@
+# Paths below are relative to this file's directory (code/) unless absolute.
+input_dir: ../content/src
+manifest_path: ../content/manifest.yml
+
+# What to do if manifest_path already exists: overwrite | stop | append
+# append: keep existing sources (by path) and add any discovered .md files not already listed
+on_existing_manifest: overwrite

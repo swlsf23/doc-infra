@@ -1,0 +1,26 @@
+version: 1
+generator: doc-infra-generate-manifest
+sources:
+  getting-started:
+    config-basics.md:
+    first-build.md:
+    installation.md:
+    manifest-intro.md:
+    next-steps.md:
+    overview.md:
+  guides:
+    includes-and-composition.md:
+    link-checking.md:
+    performance-notes.md:
+    pipeline-stages.md:
+    publishing.md:
+    troubleshooting.md:
+    writing-markdown.md:
+  reference:
+    changelog-snippet.md:
+    conventions.md:
+    examples.md:
+    faq.md:
+    file-locations.md:
+    glossary.md:
+    yaml-keys.md:
