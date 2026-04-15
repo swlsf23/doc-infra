@@ -89,25 +89,31 @@ def wrap_nav_page(*, nav_inner_html: str, stylesheet_href: str) -> str:
 
 
 def _header_fragment(*, home_href: str, github_url: str | None) -> str:
-    """Top bar: home + optional GitHub (nav toggle lives in the sidebar column, above the iframe)."""
+    """Top bar: Home left; optional GitHub flush right (single row; nav toggle stays in sidebar)."""
     import html as html_module
 
     safe_home = html_module.escape(home_href, quote=True)
-    start_bits: list[str] = [
-        f'<a class="doc-header-btn doc-header-btn--home" href="{safe_home}">Home</a>',
-    ]
+    home_html = f'<a class="doc-header-btn doc-header-btn--home" href="{safe_home}">Home</a>'
     if github_url:
         gu = html_module.escape(github_url, quote=True)
-        start_bits.append(
+        github_html = (
             f'<a class="doc-header-btn doc-header-btn--github" href="{gu}" '
             f'rel="noopener noreferrer" target="_blank">'
             f"{_GITHUB_ICON_SVG}"
             "<span>GitHub</span></a>"
         )
-    start_html = "\n        ".join(start_bits)
+        return f"""    <header class="doc-header">
+      <div class="doc-header-start">
+        {home_html}
+      </div>
+      <div class="doc-header-end" role="group" aria-label="Site actions">
+        {github_html}
+      </div>
+    </header>
+"""
     return f"""    <header class="doc-header">
       <div class="doc-header-start">
-        {start_html}
+        {home_html}
       </div>
     </header>
 """
@@ -118,12 +124,14 @@ def _sidebar_nav_chrome_fragment() -> str:
     return """        <div class="doc-sidebar-toolbar">
           <label class="doc-header-btn doc-header-btn--toggle doc-nav-toggle-label">
             <input type="checkbox" class="doc-nav-toggle-input" aria-label="Show or hide sidebar navigation">
-            <span class="doc-nav-toggle-text doc-nav-toggle-text--hide" aria-hidden="true">←</span>
-            <span class="doc-nav-toggle-text doc-nav-toggle-text--show" aria-hidden="true">→</span>
+            <span class="doc-nav-toggle-text doc-nav-toggle-text--hide" aria-hidden="true">→</span>
+            <span class="doc-nav-toggle-text doc-nav-toggle-text--show" aria-hidden="true">←</span>
           </label>
           <div class="doc-nav-toolbar" role="toolbar" aria-label="Section outline controls">
-            <button type="button" class="doc-nav-toolbar-btn doc-nav-toolbar-btn--expand" id="doc-nav-expand-all" title="Expand all" aria-label="Expand all sections">+</button>
-            <button type="button" class="doc-nav-toolbar-btn doc-nav-toolbar-btn--collapse" id="doc-nav-collapse-all" title="Collapse all" aria-label="Collapse all sections">−</button>
+            <button type="button" class="doc-nav-toolbar-btn doc-nav-toolbar-btn--expand-toggle" id="doc-nav-expand-collapse-toggle" aria-pressed="false" title="Expand all sections" aria-label="Expand all sections">
+              <span class="doc-nav-expand-collapse-icon doc-nav-expand-collapse-icon--expand" aria-hidden="true">+</span>
+              <span class="doc-nav-expand-collapse-icon doc-nav-expand-collapse-icon--collapse" aria-hidden="true">−</span>
+            </button>
           </div>
         </div>
 """
