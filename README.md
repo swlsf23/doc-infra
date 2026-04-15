@@ -11,7 +11,7 @@ Static documentation **site generator** infrastructure: YAML-driven manifests, a
 | [`code/generate_manifest.py`](code/generate_manifest.py) | Scans Markdown under `input_dir` and writes [`content/manifest.yml`](content/manifest.yml) |
 | [`code/convert.py`](code/convert.py) | Stage 1: converts each manifest page from Markdown to **raw** HTML |
 | [`code/build_site.py`](code/build_site.py) | Stage 2: wraps raw HTML with navigation and copies [`ux/`](ux/) assets into `site_output_dir` |
-| [`ux/`](ux/) | UX static assets (CSS, etc.) copied into the site output |
+| [`ux/`](ux/) | UX static assets (`site.css`, `nav.js`, `site.js`, …) copied into the site output |
 | [`content/src/`](content/src/) | Example Markdown sources (replace with real docs over time) |
 | [`content/manifest.yml`](content/manifest.yml) | Generated or hand-edited manifest |
 | [`output/html/`](output/html/) | Raw HTML from `convert.py` only (gitignored) |

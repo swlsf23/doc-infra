@@ -30,3 +30,11 @@ Manual table of contents for the sample documentation. (Replace with an autogene
 - [Examples](reference/examples.md)
 - [FAQ](reference/faq.md)
 - [Changelog snippet](reference/changelog-snippet.md)
+
+## UX lab (stress test)
+
+Long prose, wide tables, and deep paths for layout testing.
+
+- **Long form:** [Overview](ux-lab/long-form/overview.md) · [Very long scroll test](ux-lab/long-form/very-long-scroll-test.md)
+- **Layouts:** [Wide content](ux-lab/layouts/wide-content.md) · [Tables and code](ux-lab/layouts/tables-and-code.md)
+- **Deep tree:** [Branch alpha](ux-lab/deep/branch-alpha/topic-a1.md) · [Sub-leaf](ux-lab/deep/branch-gamma/sub-leaf/leaf-1.md)

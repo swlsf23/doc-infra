@@ -29,6 +29,12 @@ def _label_for_md_filename(filename: str) -> str:
     return stem.replace("-", " ").replace("_", " ").title()
 
 
+def _branch_path_attr(prefix: tuple[str, ...], key: str) -> str:
+    """Stable id for ``data-nav-path`` (folder segment or ``.md`` path with children)."""
+    path = "/".join((*prefix, key))
+    return html.escape(path, quote=True)
+
+
 def _md_link_li(
     prefix: tuple[str, ...],
     key: str,
@@ -96,8 +102,15 @@ def render_nav_html(
                     if current_md is not None and md_rel == current_md
                     else ""
                 )
+                path_attr = _branch_path_attr(prefix, key)
                 items.append(
-                    f'<li><a href="{safe_href}"{current_attr}>{label}</a>{inner}</li>'
+                    f'<li class="doc-nav-branch">'
+                    f'<details class="doc-nav-details" data-nav-path="{path_attr}">'
+                    f'<summary class="doc-nav-summary">'
+                    f'<a href="{safe_href}"{current_attr}>{label}</a>'
+                    f"</summary>"
+                    f"{inner}"
+                    f"</details></li>"
                 )
             else:
                 continue
@@ -109,7 +122,14 @@ def render_nav_html(
                 prefix=(*prefix, key),
             )
             label = html.escape(key.replace("-", " ").replace("_", " ").title())
-            items.append(f"<li><span>{label}</span>{inner}</li>")
+            path_attr = _branch_path_attr(prefix, key)
+            items.append(
+                f'<li class="doc-nav-branch">'
+                f'<details class="doc-nav-details" data-nav-path="{path_attr}">'
+                f'<summary class="doc-nav-summary">{label}</summary>'
+                f"{inner}"
+                f"</details></li>"
+            )
         else:
             continue
 

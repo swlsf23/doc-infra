@@ -6,6 +6,7 @@ import re
 import shutil
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 from doc_infra.manifest import collect_paths_from_tree, load_manifest_sources
 from doc_infra.navigation import md_path_to_html_rel, relative_href, render_nav_html
@@ -60,10 +61,14 @@ def copy_ux_assets(ux_dir: Path, site_output_dir: Path) -> None:
 
 
 def wrap_nav_page(*, nav_inner_html: str, stylesheet_href: str) -> str:
-    """Standalone ``nav.html``: full tree once. ``<base target="_parent">`` so links opened from an iframe replace the doc page, not the iframe."""
+    """Standalone ``nav.html``: full tree once. ``<base target="_parent">`` so links opened from an iframe replace the doc page, not the iframe.
+
+    ``assets/nav.js`` restores scroll position and branch open state (``sessionStorage``) and expands branches along the current page path when ``?c=`` is present.
+    """
     import html as html_module
 
     safe_href = html_module.escape(stylesheet_href, quote=True)
+    safe_js = html_module.escape(relative_href(NAV_HTML, "assets/nav.js"), quote=True)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,6 +82,7 @@ def wrap_nav_page(*, nav_inner_html: str, stylesheet_href: str) -> str:
   <nav class="doc-nav" aria-label="Site">
 {nav_inner_html}
   </nav>
+  <script src="{safe_js}" defer></script>
 </body>
 </html>
 """
@@ -107,13 +113,19 @@ def _header_fragment(*, home_href: str, github_url: str | None) -> str:
 """
 
 
-def _nav_toggle_fragment() -> str:
-    """Show/hide sidebar control; placed above the nav iframe in ``.doc-sidebar``."""
-    return """        <label class="doc-header-btn doc-header-btn--toggle doc-nav-toggle-label">
-          <input type="checkbox" class="doc-nav-toggle-input" aria-label="Show or hide sidebar navigation">
-          <span class="doc-nav-toggle-text doc-nav-toggle-text--hide" aria-hidden="true">−</span>
-          <span class="doc-nav-toggle-text doc-nav-toggle-text--show" aria-hidden="true">+</span>
-        </label>
+def _sidebar_nav_chrome_fragment() -> str:
+    """Sidebar row: ←/→ toggle (left) + expand/collapse all +/− (right), above the nav iframe."""
+    return """        <div class="doc-sidebar-toolbar">
+          <label class="doc-header-btn doc-header-btn--toggle doc-nav-toggle-label">
+            <input type="checkbox" class="doc-nav-toggle-input" aria-label="Show or hide sidebar navigation">
+            <span class="doc-nav-toggle-text doc-nav-toggle-text--hide" aria-hidden="true">←</span>
+            <span class="doc-nav-toggle-text doc-nav-toggle-text--show" aria-hidden="true">→</span>
+          </label>
+          <div class="doc-nav-toolbar" role="toolbar" aria-label="Section outline controls">
+            <button type="button" class="doc-nav-toolbar-btn doc-nav-toolbar-btn--expand" id="doc-nav-expand-all" title="Expand all" aria-label="Expand all sections">+</button>
+            <button type="button" class="doc-nav-toolbar-btn doc-nav-toolbar-btn--collapse" id="doc-nav-collapse-all" title="Collapse all" aria-label="Collapse all sections">−</button>
+          </div>
+        </div>
 """
 
 
@@ -123,6 +135,7 @@ def wrap_site_page(
     body_html: str,
     nav_iframe_src: str,
     stylesheet_href: str,
+    site_js_href: str,
     home_href: str,
     github_url: str | None,
 ) -> str:
@@ -139,8 +152,9 @@ def wrap_site_page(
     safe_title = html_module.escape(title, quote=True)
     safe_href = html_module.escape(stylesheet_href, quote=True)
     safe_nav_src = html_module.escape(nav_iframe_src, quote=True)
+    safe_site_js = html_module.escape(site_js_href, quote=True)
     header_html = _header_fragment(home_href=home_href, github_url=github_url)
-    nav_toggle_html = _nav_toggle_fragment()
+    sidebar_chrome_html = _sidebar_nav_chrome_fragment()
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,7 +168,7 @@ def wrap_site_page(
 {header_html}
     <div class="doc-layout">
       <aside class="doc-sidebar">
-{nav_toggle_html}
+{sidebar_chrome_html}
         <div class="doc-nav-frame" id="doc-nav-panel">
           <iframe class="doc-nav-iframe" title="Site navigation" src="{safe_nav_src}"></iframe>
         </div>
@@ -164,6 +178,7 @@ def wrap_site_page(
       </main>
     </div>
   </div>
+  <script src="{safe_site_js}" defer></script>
 </body>
 </html>
 """
@@ -194,8 +209,16 @@ def build_site(
         return 0, errors
 
     site_css_path = ux_dir / "site.css"
+    nav_js_path = ux_dir / "nav.js"
+    site_js_path = ux_dir / "site.js"
     if not site_css_path.is_file():
         errors.append(f"missing UX stylesheet: {site_css_path}")
+        return 0, errors
+    if not nav_js_path.is_file():
+        errors.append(f"missing nav script: {nav_js_path}")
+        return 0, errors
+    if not site_js_path.is_file():
+        errors.append(f"missing site script: {site_js_path}")
         return 0, errors
 
     nav_inner = render_nav_html(sources, from_html=NAV_HTML, current_md=None)
@@ -217,13 +240,16 @@ def build_site(
         title, body_inner = extract_title_and_body(raw_html)
         cur_html = md_path_to_html_rel(md_rel)
         css_href = relative_href(cur_html, "assets/site.css")
-        nav_iframe_src = relative_href(cur_html, NAV_HTML)
+        site_js_href = relative_href(cur_html, "assets/site.js")
+        nav_rel = relative_href(cur_html, NAV_HTML)
+        nav_iframe_src = f"{nav_rel}?c={quote(md_rel, safe='')}"
         home_href = relative_href(cur_html, SITE_INDEX_HTML)
         page_html = wrap_site_page(
             title=title,
             body_html=body_inner,
             nav_iframe_src=nav_iframe_src,
             stylesheet_href=css_href,
+            site_js_href=site_js_href,
             home_href=home_href,
             github_url=resolved_github,
         )

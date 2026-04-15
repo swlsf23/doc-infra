@@ -25,3 +25,33 @@ sources:
     file-locations.md:
     glossary.md:
     yaml-keys.md:
+  ux-lab:
+    long-form:
+      overview.md:
+      chapter-one.md:
+      chapter-two.md:
+      chapter-three.md:
+      very-long-scroll-test.md:
+    layouts:
+      aside-blocks.md:
+      dense-lists.md:
+      responsive-notes.md:
+      tables-and-code.md:
+      wide-content.md:
+    deep:
+      branch-alpha:
+        topic-a1.md:
+        topic-a2.md:
+        topic-a3.md:
+        topic-a4.md:
+      branch-beta:
+        topic-b1.md:
+        topic-b2.md:
+        topic-b3.md:
+        topic-b4.md:
+      branch-gamma:
+        sub-leaf:
+          leaf-1.md:
+          leaf-2.md:
+          leaf-3.md:
+          leaf-4.md:
