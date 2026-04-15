@@ -16,6 +16,15 @@
   --doc-complement-bg: rgb(143 77 104 / 0.14);
   --doc-complement-bg-strong: rgb(143 77 104 / 0.24);
   --doc-complement-border: rgb(143 77 104 / 0.55);
+  /* Current nav node highlight */
+  --doc-current: #1d4ed8;
+  --doc-current-bg: rgb(37 99 235 / 0.14);
+  --doc-current-bg-strong: rgb(37 99 235 / 0.22);
+  --doc-current-border: rgb(37 99 235 / 0.55);
+  /* Caution — amber/yellow (warning stays mauve) */
+  --doc-caution: #a16207;
+  --doc-caution-bg: rgb(254 252 232 / 0.98);
+  --doc-caution-border: rgb(202 138 4 / 0.55);
   --doc-card-shadow: 0 1px 2px rgb(15 13 20 / 0.05), 0 0 0 1px rgb(15 13 20 / 0.02);
 }
 
@@ -236,8 +245,8 @@ body.doc-nav-body {
   line-height: 1;
   color: var(--doc-text-heading);
   font-family: inherit;
-  background: var(--doc-complement-bg);
-  border: 1px solid var(--doc-complement-border);
+  background: var(--doc-accent-bg);
+  border: 1px solid var(--doc-accent-border);
   border-radius: 4px;
   cursor: pointer;
   transition:
@@ -246,11 +255,11 @@ body.doc-nav-body {
 }
 
 .doc-nav-toolbar-btn:hover {
-  background: var(--doc-complement-bg-strong);
+  background: var(--doc-accent-bg-strong);
 }
 
 .doc-nav-toolbar-btn:focus-visible {
-  outline: 2px solid var(--doc-complement);
+  outline: 2px solid var(--doc-accent);
   outline-offset: 2px;
 }
 
@@ -333,7 +342,14 @@ body.doc-nav-body .doc-nav {
   text-decoration: underline;
 }
 
-/* Current page (set by nav.js from ?c=) — mauve/rose complements green buttons */
+/* Keep top-level nodes visually consistent (e.g. Home + section roots). */
+.doc-nav > ul > li > a,
+.doc-nav > ul > li > .doc-nav-details > .doc-nav-summary,
+.doc-nav > ul > li > .doc-nav-details > .doc-nav-summary > a {
+  font-weight: 600;
+}
+
+/* Current page (set by nav.js from ?c=) — blue highlight */
 .doc-nav a.doc-nav-link--current,
 .doc-nav a[aria-current="page"] {
   display: block;
@@ -345,14 +361,14 @@ body.doc-nav-body .doc-nav {
   color: var(--doc-text-heading);
   font-weight: 600;
   text-decoration: none;
-  background: var(--doc-complement-bg);
-  border-left: 3px solid var(--doc-complement-border);
+  background: var(--doc-current-bg);
+  border-left: 3px solid var(--doc-current-border);
   border-radius: 0 5px 5px 0;
 }
 
 .doc-nav a.doc-nav-link--current:hover,
 .doc-nav a[aria-current="page"]:hover {
-  background: var(--doc-complement-bg-strong);
+  background: var(--doc-current-bg-strong);
   text-decoration: none;
 }
 
@@ -389,4 +405,59 @@ body.doc-nav-body .doc-nav {
   border-radius: 4px;
   padding: 0.12em 0.35em;
   font-size: 0.92em;
+}
+
+/* Admonitions (Markdown `::: kind` … `:::`) */
+.doc-main .admonition {
+  box-sizing: border-box;
+  margin: 1.25em 0;
+  padding: 0.85rem 1rem 0.95rem;
+  border-radius: 8px;
+  border: 1px solid var(--doc-border);
+  background: var(--doc-bg);
+  box-shadow: var(--doc-card-shadow);
+}
+
+.doc-main .admonition-title {
+  margin: 0 0 0.5em;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--doc-text-heading);
+}
+
+.doc-main .admonition-body > :first-child {
+  margin-top: 0;
+}
+
+.doc-main .admonition-body > :last-child {
+  margin-bottom: 0;
+}
+
+.doc-main .admonition-caution {
+  border-color: var(--doc-caution-border);
+  background: var(--doc-caution-bg);
+}
+
+.doc-main .admonition-caution .admonition-title {
+  color: var(--doc-caution);
+}
+
+.doc-main .admonition-warning {
+  border-color: var(--doc-complement-border);
+  background: var(--doc-complement-bg);
+}
+
+.doc-main .admonition-warning .admonition-title {
+  color: var(--doc-complement);
+}
+
+.doc-main .admonition-note {
+  border-color: var(--doc-accent-border);
+  background: var(--doc-accent-bg);
+}
+
+.doc-main .admonition-note .admonition-title {
+  color: var(--doc-accent);
 }

@@ -15,6 +15,10 @@ site_github_url: "https://github.com/swlsf23/doc-infra"
 # Document converter id (see doc_infra.converters.registry)
 converter: markdown
 
+# `::: kind` … `:::` blocks (caution, warning, note). If false, those lines are
+# plain Markdown text (no admonition HTML).
+markdown_directives: true
+
 # convert.py when a target .html already exists: overwrite | skip | stop
 # stop: refuse to run if any target file already exists (nothing written)
 on_existing_html: overwrite

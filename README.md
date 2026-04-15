@@ -51,6 +51,8 @@ python code/convert.py
 
 Optional: `python code/convert.py --config /path/to/config.yml`
 
+**Admonitions** (styled callouts) use a fenced block: an opening line `::: caution` (or `warning`, `note`), an optional title on the same line, body text, then a closing `:::` on its own line. Body content supports **inline** Markdown (emphasis, links, code). See [`directives.py`](code/doc_infra/converters/markdown/mistune/directives.py).
+
 ## Build the browsable site (navigation)
 
 After `convert.py`, run `build_site.py`. It reads raw HTML from `html_output_dir`, writes **`nav.html`** once at the site root (full manifest tree, shared by every page), wraps each page in a layout that loads that nav in an **iframe** (so nav markup is not duplicated in each HTML file), links [`ux/site.css`](ux/site.css) (copied to `assets/site.css`), and copies the rest of `ux/` into `site_output_dir/assets/`. Writes content pages under `site_output_dir` (default `output/site`). If styles do not load over `file://`, run `python -m http.server` from `output/site` and open **http://127.0.0.1:8000/** (or use an external browser).
@@ -70,6 +72,7 @@ Optional: `python code/build_site.py --config /path/to/config.yml`
 - **`ux_dir`**: Directory of static assets (for example CSS) copied into `site_output_dir/assets/`.
 - **`site_github_url`**: Header **GitHub** pill (icon + label). Use a quoted URL. If the key is omitted or set to an empty string, a **default** URL is used (`doc_infra.site.DEFAULT_SITE_GITHUB_URL`). Set to YAML **`false`** to hide the GitHub control.
 - **`converter`**: Converter id (default `markdown`). Register new converters in [`code/doc_infra/converters/`](code/doc_infra/converters/).
+- **`markdown_directives`**: Boolean (default `true`). When `true`, `::: caution` / `warning` / `note` … `:::` blocks become styled admonition HTML. When `false`, the Mistune directives plugin is off and `:::` lines are ordinary Markdown (they still convert to HTML as normal paragraph text).
 - **`on_existing_html`**: `overwrite` (replace files), `skip` (only write missing `.html`), or `stop` (error if any target `.html` already exists. Writes nothing).
 - **`on_existing_manifest`**: Used only by `generate_manifest.py`: `overwrite`, `stop`, or `append`.
 - **`manifest_version`** (optional): Integer written as `version` in the manifest (default `1`).

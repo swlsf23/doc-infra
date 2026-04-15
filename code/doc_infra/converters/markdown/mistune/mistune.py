@@ -7,12 +7,13 @@ static files on disk. External URLs and non-``.md`` paths are unchanged.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 import mistune
 from mistune.renderers.html import HTMLRenderer
 
 from doc_infra.converters.base import DocumentConverter
+from doc_infra.converters.markdown.mistune.directives import directives
 
 
 def _emit_static_href(url: str) -> str:
@@ -44,16 +45,19 @@ class DocInfraHTMLRenderer(HTMLRenderer):
 class MistuneMarkdownConverter(DocumentConverter):
     """Markdown → HTML via Mistune; plugins + renderer above for correct page links."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, directives_enabled: bool = True) -> None:
+        plugins: list[Any] = [
+            "strikethrough",
+            "footnotes",
+            "table",
+            "url",
+            "task_lists",
+        ]
+        if directives_enabled:
+            plugins.append(directives)
         self._md = mistune.create_markdown(
             renderer=DocInfraHTMLRenderer(),
-            plugins=[
-                "strikethrough",
-                "footnotes",
-                "table",
-                "url",
-                "task_lists",
-            ],
+            plugins=plugins,
         )
 
     @property

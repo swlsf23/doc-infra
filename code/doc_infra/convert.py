@@ -1,8 +1,8 @@
 r"""Convert Markdown listed in the manifest to HTML files.
 
-Reads ``input_dir``, ``manifest_path``, ``html_output_dir``, ``converter``, and
-``on_existing_html`` from ``config.yml`` (paths relative to the config file unless
-absolute).
+Reads ``input_dir``, ``manifest_path``, ``html_output_dir``, ``converter``,
+``markdown_directives`` (optional), and ``on_existing_html`` from ``config.yml``
+(paths relative to the config file unless absolute).
 
 ``on_existing_html``:
 
@@ -42,6 +42,7 @@ def convert_all(
     html_output_dir: Path,
     converter_name: str,
     on_existing_html: str = "overwrite",
+    markdown_directives: bool = True,
 ) -> tuple[int, list[str], int]:
     """Convert every manifest page.
 
@@ -56,7 +57,10 @@ def convert_all(
 
     sources = load_manifest_sources(manifest_path)
     paths = sorted(collect_paths_from_tree(sources))
-    converter = get_converter(converter_name)
+    converter = get_converter(
+        converter_name,
+        directives_enabled=markdown_directives,
+    )
     errors: list[str] = []
     skipped = 0
 
@@ -142,6 +146,11 @@ def main() -> int:
         print("error: on_existing_html must be a string", file=sys.stderr)
         return 1
 
+    markdown_directives = cfg.get("markdown_directives", True)
+    if not isinstance(markdown_directives, bool):
+        print("error: markdown_directives must be a boolean (true/false)", file=sys.stderr)
+        return 1
+
     input_dir = resolve_path(config_dir, str(input_dir_s))
     manifest_path = resolve_path(config_dir, str(manifest_path_s))
     html_output_dir = resolve_path(config_dir, str(html_out_s))
@@ -153,6 +162,7 @@ def main() -> int:
             html_output_dir=html_output_dir,
             converter_name=converter_name,
             on_existing_html=on_existing_html,
+            markdown_directives=markdown_directives,
         )
     except (FileNotFoundError, ValueError) as e:
         print(f"error: {e}", file=sys.stderr)
@@ -171,7 +181,8 @@ def main() -> int:
 
     print(
         f"Converted {n} page(s) to {html_output_dir} "
-        f"(converter={converter_name!r}, on_existing_html={on_existing_html!r})",
+        f"(converter={converter_name!r}, on_existing_html={on_existing_html!r}, "
+        f"markdown_directives={markdown_directives!r})",
     )
     return 1 if errors else 0
 

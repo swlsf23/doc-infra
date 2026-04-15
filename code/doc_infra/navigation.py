@@ -26,6 +26,8 @@ def relative_href(from_page: str, to_page: str) -> str:
 
 def _label_for_md_filename(filename: str) -> str:
     stem = filename[: -len(".md")] if filename.endswith(".md") else filename
+    if stem == "index":
+        return "Home"
     return stem.replace("-", " ").replace("_", " ").title()
 
 
