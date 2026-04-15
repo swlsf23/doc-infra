@@ -1,1 +1,6 @@
 .venv/
+__pycache__/
+*.py[cod]
+
+# Build output; may be tracked later if we ship generated HTML as the official site docs.
+output/
