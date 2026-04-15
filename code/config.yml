@@ -8,6 +8,9 @@ html_output_dir: ../output/html
 # Browsable site from build_site.py: raw HTML + nav + assets copied from ux_dir
 site_output_dir: ../output/site
 ux_dir: ../ux
+# Repository URL for the header GitHub button. Omit or "" uses the built-in default.
+# Set to false to hide the GitHub control entirely.
+site_github_url: "https://github.com/swlsf23/doc-infra"
 
 # Document converter id (see doc_infra.converters.registry)
 converter: markdown

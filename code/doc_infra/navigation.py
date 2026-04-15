@@ -29,25 +29,38 @@ def _label_for_md_filename(filename: str) -> str:
     return stem.replace("-", " ").replace("_", " ").title()
 
 
-def _md_link_li(prefix: tuple[str, ...], key: str, current_md: str) -> str:
+def _md_link_li(
+    prefix: tuple[str, ...],
+    key: str,
+    *,
+    from_html: str,
+    current_md: str | None,
+) -> str:
     """One ``<li>`` with a link to a markdown page (leaf)."""
     md_rel = "/".join((*prefix, key))
     html_rel = md_path_to_html_rel(md_rel)
-    cur_html = md_path_to_html_rel(current_md)
-    href = relative_href(cur_html, html_rel)
+    href = relative_href(from_html, html_rel)
     safe_href = html.escape(href, quote=True)
     label = html.escape(_label_for_md_filename(key))
-    current_attr = ' aria-current="page"' if md_rel == current_md else ""
+    current_attr = (
+        ' aria-current="page"' if current_md is not None and md_rel == current_md else ""
+    )
     return f'<li><a href="{safe_href}"{current_attr}>{label}</a></li>'
 
 
 def render_nav_html(
     sources: dict[str, Any],
     *,
-    current_md: str,
+    from_html: str,
+    current_md: str | None = None,
     prefix: tuple[str, ...] = (),
 ) -> str:
-    """Nested ``<ul>`` linking to every manifest page, with ``aria-current`` on the active page.
+    """Nested ``<ul>`` linking to every manifest page.
+
+    ``from_html`` is the site-relative path of the page that will contain these links
+    (e.g. ``reference/foo.html`` or root ``nav.html``), used for relative ``href`` values.
+
+    If ``current_md`` is set (manifest path to ``.md``), that page gets ``aria-current="page"``.
 
     Key order follows the manifest mapping order (same as YAML after normalization).
     """
@@ -58,28 +71,43 @@ def render_nav_html(
                 continue
             for name in val:
                 if isinstance(name, str) and name.endswith(".md"):
-                    items.append(_md_link_li(prefix, name, current_md))
+                    items.append(
+                        _md_link_li(prefix, name, from_html=from_html, current_md=current_md)
+                    )
             continue
 
         if key.endswith(".md"):
             if val is None or val == {}:
-                items.append(_md_link_li(prefix, key, current_md))
+                items.append(_md_link_li(prefix, key, from_html=from_html, current_md=current_md))
             elif isinstance(val, dict):
-                inner = render_nav_html(val, current_md=current_md, prefix=(*prefix, key))
+                inner = render_nav_html(
+                    val,
+                    from_html=from_html,
+                    current_md=current_md,
+                    prefix=(*prefix, key),
+                )
                 md_rel = "/".join((*prefix, key))
                 html_rel = md_path_to_html_rel(md_rel)
-                cur_html = md_path_to_html_rel(current_md)
-                href = relative_href(cur_html, html_rel)
+                href = relative_href(from_html, html_rel)
                 safe_href = html.escape(href, quote=True)
                 label = html.escape(_label_for_md_filename(key))
-                current_attr = ' aria-current="page"' if md_rel == current_md else ""
+                current_attr = (
+                    ' aria-current="page"'
+                    if current_md is not None and md_rel == current_md
+                    else ""
+                )
                 items.append(
                     f'<li><a href="{safe_href}"{current_attr}>{label}</a>{inner}</li>'
                 )
             else:
                 continue
         elif isinstance(val, dict):
-            inner = render_nav_html(val, current_md=current_md, prefix=(*prefix, key))
+            inner = render_nav_html(
+                val,
+                from_html=from_html,
+                current_md=current_md,
+                prefix=(*prefix, key),
+            )
             label = html.escape(key.replace("-", " ").replace("_", " ").title())
             items.append(f"<li><span>{label}</span>{inner}</li>")
         else:

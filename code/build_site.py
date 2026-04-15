@@ -53,18 +53,31 @@ def main() -> int:
     site_output_dir = resolve_path(config_dir, str(site_out_s))
     ux_dir = resolve_path(config_dir, str(ux_dir_s))
 
+    site_github_raw = cfg.get("site_github_url")
+    if site_github_raw is not None and site_github_raw is not False and not isinstance(
+        site_github_raw,
+        str,
+    ):
+        print(
+            "error: site_github_url must be a string, false, or omitted (see README)",
+            file=sys.stderr,
+        )
+        return 1
+
     n, errors = build_site(
         manifest_path=manifest_path,
         html_output_dir=html_output_dir,
         site_output_dir=site_output_dir,
         ux_dir=ux_dir,
+        site_github_url=site_github_raw,
     )
 
     for msg in errors:
         print(msg, file=sys.stderr)
 
+    content_pages = max(0, n - 1)
     print(
-        f"Built {n} site page(s) in {site_output_dir} "
+        f"Built {content_pages} content page(s), nav.html, and assets in {site_output_dir} "
         f"(from raw HTML in {html_output_dir}, ux={ux_dir})",
     )
     return 1 if errors else 0
