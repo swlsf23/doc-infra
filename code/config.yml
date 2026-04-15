@@ -5,6 +5,10 @@ manifest_path: ../content/manifest.yml
 # HTML output from convert.py: mirrors manifest paths with .html extension
 html_output_dir: ../output/html
 
+# Browsable site from build_site.py: raw HTML + nav + assets copied from ux_dir
+site_output_dir: ../output/site
+ux_dir: ../ux
+
 # Document converter id (see doc_infra.converters.registry)
 converter: markdown
 
