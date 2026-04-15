@@ -1,5 +1,9 @@
 # Includes and composition
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Large sites should split manifests across files, then compose them with explicit include nodes.
 
 ## Rules of thumb

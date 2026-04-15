@@ -1,5 +1,9 @@
 # Branch alpha — topic A3
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Access control appears in almost every deep runbook. This page talks about roles, bindings, and audit logs in abstract terms so you can evaluate how much vertical space a security-heavy section consumes when sandwiched between operational content elsewhere in the branch.
 
 ## Roles and bindings

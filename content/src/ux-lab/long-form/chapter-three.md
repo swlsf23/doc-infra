@@ -1,5 +1,9 @@
 # Chapter three — cross-links and tone
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Cross-links are how readers move between chapters without relying solely on the site navigation. In this stub, links point at sibling pages inside `ux-lab/long-form` and occasionally at the layouts section. When you click through, confirm that the iframe-based navigation highlights feel consistent and that the browser history stack behaves as expected when you alternate between sidebar links and in-body anchors.
 
 ## Linking backward and forward

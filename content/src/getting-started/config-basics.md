@@ -1,5 +1,9 @@
 # Config basics
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Configuration is split so authors do not have to touch infrastructure knobs for everyday writing.
 
 ## Layers

@@ -1,5 +1,9 @@
 # Tables and code
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Tables and fenced code blocks are two of the fastest ways to break a narrow layout or force horizontal scrolling on small screens. This page includes both so you can resize the window, toggle the navigation sidebar, and observe whether scrollbars appear in the right places—on the main column, the page, or an inner container.
 
 ## Sample configuration table

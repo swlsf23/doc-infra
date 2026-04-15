@@ -1,5 +1,9 @@
 # Branch alpha — topic A1
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 The **branch-alpha** folder exists to test URLs that are three levels deep under `ux-lab`: `ux-lab/deep/branch-alpha/`. Pages here should behave identically to shallower paths aside from relative link resolution and breadcrumb depth if you add breadcrumbs later.
 
 ## Scope

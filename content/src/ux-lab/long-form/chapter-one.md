@@ -1,5 +1,9 @@
 # Chapter one — pacing and paragraphs
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 The first chapter in a long-form stub should read like something a technical editor might actually ship: a clear title, a short lede, and then enough body copy that the reader must commit to scrolling. This page leans on medium-length paragraphs so you can judge whether the doc theme keeps a comfortable measure on large displays without letting lines run past seventy or eighty characters in the main column.
 
 ## Establishing context

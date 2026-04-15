@@ -1,5 +1,9 @@
 # Pipeline stages
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 The build is intentionally split into stages so failures are easy to classify.
 
 ## Stage 1: Materialize

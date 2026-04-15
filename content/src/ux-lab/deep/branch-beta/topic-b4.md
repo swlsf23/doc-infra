@@ -1,5 +1,9 @@
 # Branch beta — topic B4
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 The final page in branch beta reflects on handoffs between teams. Analytics pipelines touch storage admins, security reviewers, and sometimes legal for PII handling. When documentation maps those touchpoints, paragraphs accumulate because each team has different review cadences and tooling.
 
 ## Communication norms

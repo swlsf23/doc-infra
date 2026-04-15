@@ -1,5 +1,9 @@
 # Branch beta — topic B3
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Observability hooks belong in every pipeline doc: metrics for job duration, row counts, and error rates; logs for coordinator decisions; traces if tasks fan out widely. This page strings those concepts together with filler sentences so the section has enough height to compare against sibling pages when you flip through the nav iframe quickly.
 
 ## Dashboards

@@ -1,5 +1,9 @@
 # Conventions
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 ## Filenames
 
 Use lowercase kebab-case for Markdown files: `first-build.md`, not `First Build.md`.

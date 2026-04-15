@@ -1,5 +1,9 @@
 # Responsive notes
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Responsive design is not only about breakpoints. It is about **priorities**: which content stays visible when the viewport narrows, which navigation patterns collapse, and which auxiliary widgets disappear first. This page collects long paragraphs that describe hypothetical breakpoints so you can read them while resizing the browser and watching the doc layout adapt—or not—depending on your current CSS.
 
 ## Desktop-first assumptions

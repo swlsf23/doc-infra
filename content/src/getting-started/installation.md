@@ -1,5 +1,9 @@
 # Installation
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 This page pretends there is a CLI named `doc-infra`. It does not exist yet; the commands are illustrative.
 
 ## Prerequisites

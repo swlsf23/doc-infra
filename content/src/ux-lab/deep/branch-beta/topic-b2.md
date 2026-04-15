@@ -1,5 +1,9 @@
 # Branch beta — topic B2
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Data quality checks often deserve their own page. This stub describes validation rules—null rates, uniqueness, referential integrity—in prose form. Real docs might attach SQL snippets; here we avoid extra block types so the page remains a paragraph-forward sample.
 
 ## Thresholds and alerts

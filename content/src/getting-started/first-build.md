@@ -1,5 +1,9 @@
 # First build
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Once the manifest describes your sources, the build should be a single command away.
 
 ## Minimal flow

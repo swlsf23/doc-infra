@@ -1,5 +1,9 @@
 # Long-form overview
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 This section exists to stress-test the documentation shell when writers ship **multi-section chapters**, generous whitespace, and cross-references that span many screen heights. Nothing here is production guidance; it is deliberately verbose so you can scroll the main column, resize the viewport, and confirm that navigation, typography, and the sidebar remain usable.
 
 ## Why a dedicated long-form bucket

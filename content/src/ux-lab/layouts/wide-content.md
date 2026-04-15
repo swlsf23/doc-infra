@@ -1,5 +1,9 @@
 # Wide content and measure
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 This page discusses horizontal layout without relying on a live table yet. The goal is to see how paragraphs behave when the viewport is extremely wide: whether the main column caps width sensibly, and whether the reader’s eyes can track lines without losing place. Many documentation themes set `max-width` on article bodies; if yours does not, long lines may become fatiguing even when the font size is comfortable.
 
 ## Paragraphs that stretch the line

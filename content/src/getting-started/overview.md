@@ -1,5 +1,9 @@
 # Overview
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Welcome to the example documentation set. This corpus exists to exercise hierarchical layouts, cross-links, and build pipelines without relying on real product secrets.
 
 ## Goals

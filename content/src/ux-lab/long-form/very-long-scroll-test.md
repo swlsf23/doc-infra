@@ -1,5 +1,9 @@
 # Very long scroll test
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 This page is intentionally longer than a typical browser viewport so you can validate scrolling behavior, sticky chrome (if you add it later), and reading comfort on tall monitors. Each section below repeats a similar pattern—title, two or three paragraphs, occasional list—to approximate a real appendix or migration guide without embedding sensitive data.
 
 ## Section 01 — baseline density

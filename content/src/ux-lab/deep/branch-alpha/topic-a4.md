@@ -1,5 +1,9 @@
 # Branch alpha — topic A4
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 The last page in branch alpha summarizes lessons learned from the previous topics and points readers toward **branch-beta** for a parallel set of pages at the same depth. Summaries are useful UX tests because they often repeat terminology from earlier sections, producing natural keyword density and internal link opportunities.
 
 ## Recap

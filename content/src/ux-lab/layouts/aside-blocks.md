@@ -1,5 +1,9 @@
 # Aside blocks (admonitions)
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Real documentation systems often render **notes**, **cautions**, and **warnings** as aside elements. This page uses the doc-infra `::: kind` … `:::` directives (`caution`, `warning`, `note`) so you can preview spacing, titles, and hierarchy in the built site.
 
 ::: note

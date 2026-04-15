@@ -1,5 +1,9 @@
 # Troubleshooting
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 ## Build fails immediately
 
 Check manifest validation output first. Most early failures are duplicate output paths or missing sources.

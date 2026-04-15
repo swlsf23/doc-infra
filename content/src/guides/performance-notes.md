@@ -1,5 +1,9 @@
 # Performance notes
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Static generators usually spend time in three places: IO, Markdown conversion, and link analysis.
 
 ## IO

@@ -1,5 +1,9 @@
 # Publishing
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Publishing is mostly “copy `dist/` to hosting,” but a few details recur in real projects.
 
 ## Artifacts

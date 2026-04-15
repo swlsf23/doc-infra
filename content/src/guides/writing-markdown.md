@@ -1,5 +1,9 @@
 # Writing Markdown
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 These samples use common features you will want to regression-test.
 
 ## Lists

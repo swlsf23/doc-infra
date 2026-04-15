@@ -1,5 +1,9 @@
 # Sub-leaf — page one
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 You are now four directories below `content/src`: `ux-lab/deep/branch-gamma/sub-leaf/`. This depth is common in large doc sets where product areas nest under platform areas. The build pipeline should emit stable relative URLs like `ux-lab/deep/branch-gamma/sub-leaf/leaf-1.html` without duplicating navigation markup in every file.
 
 ## Purpose

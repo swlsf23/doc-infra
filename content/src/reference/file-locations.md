@@ -1,5 +1,9 @@
 # File locations (examples)
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 This repository uses the following layout for sample content:
 
 - `content/src/getting-started/` — onboarding-style pages

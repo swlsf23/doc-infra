@@ -1,5 +1,9 @@
 # YAML keys (illustrative)
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 These keys are **not** authoritative until your schemas lock them in. They illustrate likely separation of concerns.
 
 ## `code/config.yml`

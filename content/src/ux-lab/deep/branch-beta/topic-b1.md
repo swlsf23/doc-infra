@@ -1,5 +1,9 @@
 # Branch beta — topic B1
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Branch beta parallels branch alpha at the same URL depth but uses a different narrative theme: here we pretend to document a batch analytics pipeline that runs nightly, reconciles partial failures, and publishes summary tables for business stakeholders. The content is still synthetic; the point is to give the site generator another cluster of sibling pages to render.
 
 ## Scheduling and SLAs

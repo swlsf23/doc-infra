@@ -1,5 +1,9 @@
 # Chapter two — lists interleaved with prose
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Long documentation rarely sticks to pure paragraphs. Writers interleave numbered steps, nested bullets, and definition lists. This chapter mixes those patterns with uninterrupted paragraphs so you can verify that list markers align with the main text column and that nested lists do not collide with the sidebar when the layout is only two columns wide.
 
 ## Narrative with a short list

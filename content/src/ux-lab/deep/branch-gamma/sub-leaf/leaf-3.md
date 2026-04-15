@@ -1,5 +1,9 @@
 # Sub-leaf — page three
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Mid-cluster pages sometimes hold the densest material: the reader has committed to the section and expects detail. This page delivers several paragraphs about hypothetical rate limits, fairness between tenants, and burst allowances. None of the numbers are binding; they exist to wrap naturally in the main column.
 
 ## Rate limiting as prose

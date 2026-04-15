@@ -1,5 +1,9 @@
 # Examples
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 ## Callouts (fenced)
 
 ```text

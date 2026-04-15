@@ -1,5 +1,9 @@
 # Manifest introduction
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 The manifest is the authoritative list of generated pages. It is **ordered**: sibling order matters for build order and for navigation consumers later.
 
 ## Principles

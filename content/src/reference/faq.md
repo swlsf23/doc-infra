@@ -1,5 +1,9 @@
 # FAQ
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 ## Why YAML for the manifest?
 
 It stays readable in review, supports hierarchy, and diffs cleanly.

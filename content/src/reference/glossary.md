@@ -1,5 +1,9 @@
 # Glossary
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 **Manifest** — Ordered, hierarchical description of what the build emits.
 
 **Materialize** — Copy inputs into a per-run workspace before conversion.

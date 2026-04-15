@@ -1,5 +1,9 @@
 # Dense lists
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Bullet lists compress information. When many bullets appear in sequence, vertical spacing and marker alignment become visible at a glance. This page stacks nested lists and mixed list types so you can confirm the doc theme keeps indentation predictable and does not collide with the sidebar gutter on medium-width viewports.
 
 ## Shallow checklist

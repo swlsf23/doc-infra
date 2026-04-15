@@ -1,5 +1,9 @@
 # Changelog snippet
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 This page mimics a release-notes fragment you might splice into a larger changelog.
 
 ## 0.1.0 — Scaffold

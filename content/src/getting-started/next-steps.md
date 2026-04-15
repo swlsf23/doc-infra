@@ -1,5 +1,9 @@
 # Next steps
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 You now have a small library of sample Markdown across nested folders. Use it to test:
 
 - Path normalization and duplicate detection

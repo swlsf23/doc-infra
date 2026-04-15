@@ -1,5 +1,9 @@
 # Branch alpha — topic A2
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 Topic A2 continues the fictional telemetry story with a focus on schema evolution. When producers and consumers upgrade independently, field additions must be backward compatible and deprecations must be announced with a sunset date. Write those policies in complete sentences so paragraph flow matches what a platform team would publish internally.
 
 ## Compatibility matrix

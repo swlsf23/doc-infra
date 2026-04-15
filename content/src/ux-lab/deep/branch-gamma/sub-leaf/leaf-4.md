@@ -1,5 +1,9 @@
 # Sub-leaf — page four
 
+::: note
+Placeholder material for internal testing only. No operational, analytical, or evaluative use is intended.
+:::
+
 The last page under **sub-leaf** wraps the deepest branch of the UX lab. It repeats a simple message in multiple forms: depth should not break navigation, search, or print styles. If your pipeline passes this page, you have reasonable confidence that future content can grow downward as well as outward.
 
 ## Exit ramps
