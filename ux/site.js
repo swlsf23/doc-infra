@@ -13,19 +13,31 @@
     }
   }
 
+  function setToggleVisual(btn, pressed) {
+    btn.setAttribute("aria-pressed", pressed ? "true" : "false");
+    if (pressed) {
+      btn.title = "Collapse all sections";
+      btn.setAttribute("aria-label", "Collapse all sections");
+    } else {
+      btn.title = "Expand all sections";
+      btn.setAttribute("aria-label", "Expand all sections");
+    }
+  }
+
   function wireNavToolbar(iframe) {
-    var expandBtn = document.getElementById("doc-nav-expand-all");
-    var collapseBtn = document.getElementById("doc-nav-collapse-all");
-    if (expandBtn) {
-      expandBtn.onclick = function () {
+    var toggleBtn = document.getElementById("doc-nav-expand-collapse-toggle");
+    if (!toggleBtn) return;
+
+    toggleBtn.onclick = function () {
+      var pressed = toggleBtn.getAttribute("aria-pressed") === "true";
+      if (!pressed) {
         postToNav(iframe, MSG_EXPAND);
-      };
-    }
-    if (collapseBtn) {
-      collapseBtn.onclick = function () {
+        setToggleVisual(toggleBtn, true);
+      } else {
         postToNav(iframe, MSG_COLLAPSE);
-      };
-    }
+        setToggleVisual(toggleBtn, false);
+      }
+    };
   }
 
   function tryWire(iframe) {
