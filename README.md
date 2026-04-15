@@ -82,3 +82,14 @@ Manifest shape and behavior are documented in [`code/doc_infra/manifest.py`](cod
 ## Status
 
 Manifest generation, Markdown→HTML conversion (`output/html`), and a second-stage browsable site with navigation (`output/site` via `build_site.py` and `ux/`) are implemented. Materialize stage, deploy packaging, link checking, and wiring `site-config.yml` into the site are not implemented yet.
+
+## Release notes
+
+### v0.1.0
+
+First usable baseline release:
+
+- Markdown-to-HTML conversion via Mistune.
+- Site build stage with shared navigation and UX assets.
+- Styled `::: note|warning|caution` directives (configurable via `markdown_directives`).
+- Sample content corpus with internal-testing notice blocks.
