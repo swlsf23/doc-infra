@@ -160,8 +160,16 @@ body {
   align-self: stretch;
 }
 
-.doc-sidebar .doc-header-btn {
-  width: 100%;
+/* Toggle is compact (+/−); other sidebar chrome can stay full-width later */
+.doc-sidebar .doc-nav-toggle-label.doc-header-btn {
+  width: auto;
+  align-self: flex-start;
+  min-width: 1.75rem;
+  min-height: 1.65rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .doc-nav-frame {

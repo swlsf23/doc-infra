@@ -111,8 +111,8 @@ def _nav_toggle_fragment() -> str:
     """Show/hide sidebar control; placed above the nav iframe in ``.doc-sidebar``."""
     return """        <label class="doc-header-btn doc-header-btn--toggle doc-nav-toggle-label">
           <input type="checkbox" class="doc-nav-toggle-input" aria-label="Show or hide sidebar navigation">
-          <span class="doc-nav-toggle-text doc-nav-toggle-text--hide" aria-hidden="true">Hide nav</span>
-          <span class="doc-nav-toggle-text doc-nav-toggle-text--show" aria-hidden="true">Show nav</span>
+          <span class="doc-nav-toggle-text doc-nav-toggle-text--hide" aria-hidden="true">−</span>
+          <span class="doc-nav-toggle-text doc-nav-toggle-text--show" aria-hidden="true">+</span>
         </label>
 """
 
