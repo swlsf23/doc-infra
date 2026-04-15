@@ -2,6 +2,16 @@
 input_dir: ../content/src
 manifest_path: ../content/manifest.yml
 
+# HTML output from convert.py: mirrors manifest paths with .html extension
+html_output_dir: ../output/html
+
+# Document converter id (see doc_infra.converters.registry)
+converter: markdown
+
+# convert.py when a target .html already exists: overwrite | skip | stop
+# stop: refuse to run if any target file already exists (nothing written)
+on_existing_html: overwrite
+
 # What to do if manifest_path already exists: overwrite | stop | append
 # append: keep existing sources (by path) and add any discovered .md files not already listed
 on_existing_manifest: overwrite
