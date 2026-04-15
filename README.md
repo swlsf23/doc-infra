@@ -50,13 +50,13 @@ Optional: `python code/convert.py --config /path/to/config.yml`
 
 ## `code/config.yml`
 
-- **`input_dir`** — Root for Markdown sources (absolute, or relative to the directory containing `config.yml`).
-- **`manifest_path`** — Manifest file (resolved the same way).
-- **`html_output_dir`** — Where `convert.py` writes `.html` files.
-- **`converter`** — Converter id (default `markdown`). Register new converters in [`code/doc_infra/converters/`](code/doc_infra/converters/).
-- **`on_existing_html`** — `overwrite` (replace files), `skip` (only write missing `.html`), or `stop` (error if any target `.html` already exists; writes nothing).
-- **`on_existing_manifest`** — Used only by `generate_manifest.py`: `overwrite`, `stop`, or `append`.
-- **`manifest_version`** (optional) — Integer written as `version` in the manifest (default `1`).
+- **`input_dir`**: Root for Markdown sources (absolute, or relative to the directory containing `config.yml`).
+- **`manifest_path`**: Manifest file (resolved the same way).
+- **`html_output_dir`**: Where `convert.py` writes `.html` files.
+- **`converter`**: Converter id (default `markdown`). Register new converters in [`code/doc_infra/converters/`](code/doc_infra/converters/).
+- **`on_existing_html`**: `overwrite` (replace files), `skip` (only write missing `.html`), or `stop` (error if any target `.html` already exists. Writes nothing).
+- **`on_existing_manifest`**: Used only by `generate_manifest.py`: `overwrite`, `stop`, or `append`.
+- **`manifest_version`** (optional): Integer written as `version` in the manifest (default `1`).
 
 Manifest shape and behavior are documented in [`code/doc_infra/manifest.py`](code/doc_infra/manifest.py) and the docstring at the top of [`code/generate_manifest.py`](code/generate_manifest.py).
 

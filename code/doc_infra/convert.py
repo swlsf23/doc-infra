@@ -6,9 +6,9 @@ absolute).
 
 ``on_existing_html``:
 
-- ``overwrite`` — replace existing ``.html`` files (default).
-- ``skip`` — leave existing ``.html`` files unchanged; only write missing outputs.
-- ``stop`` — if any target ``.html`` already exists, exit with an error and write
+- ``overwrite``: replace existing ``.html`` files (default).
+- ``skip``: leave existing ``.html`` files unchanged. Only write missing outputs.
+- ``stop``: if any target ``.html`` already exists, exit with an error and write
   nothing.
 
 For each ``*.md`` path in the manifest, writes ``<same-relative-path>.html`` under
