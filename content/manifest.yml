@@ -1,6 +1,7 @@
 version: 1
 generator: doc-infra-generate-manifest
 sources:
+  index.md:
   getting-started:
     config-basics.md:
     first-build.md:
