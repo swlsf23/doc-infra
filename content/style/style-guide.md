@@ -11,6 +11,7 @@ These rules apply to documentation and other prose in this project.
 
 - Prefer **present tense** when describing how the product or tooling behaves today.
 - Avoid **future tense** for ordinary procedures. Use future tense only when the text is about a future release, a scheduled action, or clearly hypothetical behavior.
+- Do not include **forward-looking** placeholder content (for example outlines of planned topics, “intended sections,” or “coming soon” lists). Write what is true today or omit the topic until it is ready.
 
 ## Voice
 
@@ -26,6 +27,7 @@ These rules apply to documentation and other prose in this project.
 
 - Use **one term per concept** across the docs.
 - Match **product names**, spelling, and capitalization to the product and branding.
+- Prefer **topic** over **page** when you mean a subject or section of the documentation (not a literal browser or printed page).
 
 ## Capitalization
 
@@ -36,6 +38,11 @@ These rules apply to documentation and other prose in this project.
 
 - Use **parallel structure** in each list (all start the same way, same grammar).
 - Punctuate lists consistently. Use either **fragments** without a final period or **full sentences** with periods.
+
+## Procedures
+
+- Introduce a **numbered procedure** with a short **lead-in sentence** in the form **To** *verb clause* (for example *To install…*, *To configure…*). The verb clause states what the reader will do and any important context (for example the tool or product). End that sentence with a **colon**, then start the numbered steps on the next line.
+- Example: *To install the **AWS Command Line Interface (AWS CLI)** with Homebrew:*
 
 ## Code and UI
 
