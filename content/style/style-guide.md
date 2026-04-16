@@ -38,6 +38,12 @@ These rules apply to documentation and other prose in this project.
 
 - Use **parallel structure** in each list (all start the same way, same grammar).
 - Punctuate lists consistently. Use either **fragments** without a final period or **full sentences** with periods.
+- Keep **pipe tables** (GitHub-style `| … |` tables) **out of nested list bodies**. A table indented under a numbered step is often parsed as plain text so pipes show literally. End the list (or close the step with only a code fence), then put the table at **section level** with no leading indentation.
+
+## Tables
+
+- Use **tables** for real tabular data, not for layout.
+- Follow the rule above when combining tables with procedures so the site converter renders them as HTML tables.
 
 ## Procedures
 
@@ -47,6 +53,9 @@ These rules apply to documentation and other prose in this project.
 ## Code and UI
 
 - Use **monospace** for commands, paths, and literals.
+- Treat **real paths** (for example repository-relative paths the reader must open, copy, or `cd` into) as **code examples** when they are the main focus of a step. Put them in a **fenced code block** instead of burying them only in prose.
+- For those path examples, use a **` ```text `** fence when the block is a path (or tree fragment) by itself. Use a **` ```bash `** fence when the path appears inside a runnable shell command.
+- Use **inline monospace** for short path fragments inside a sentence when a fence would read awkwardly.
 - Use **bold** for UI labels when you describe what to click.
 - Do not invent menu paths or labels that do not exist in the product.
 
@@ -70,7 +79,6 @@ These rules apply to documentation and other prose in this project.
 ## Accessibility
 
 - Add **alt text** for images that carry meaning. Use empty alt for purely decorative images when your format allows it.
-- Use **tables** for real tabular data, not for layout.
 
 ## Punctuation
 

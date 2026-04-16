@@ -86,4 +86,4 @@ To install **Terraform** with Homebrew:
 
 See [Install Terraform](https://developer.hashicorp.com/terraform/install) if you need an install path other than Homebrew.
 
-Before you provision AWS resources in an account, work through the [AWS account checklist](aws-account-checklist.md).
+Before you provision AWS resources in an account, work through the [AWS account checklist](aws-account-checklist.md). When you are ready to run Terraform, follow [Provision AWS hosting](provision-aws-hosting.md).

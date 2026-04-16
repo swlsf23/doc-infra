@@ -20,6 +20,7 @@ sources:
   infra:
     setup-environment.md:
     aws-account-checklist.md:
+    provision-aws-hosting.md:
   reference:
     changelog-snippet.md:
     conventions.md:

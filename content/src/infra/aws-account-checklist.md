@@ -36,6 +36,8 @@ If your company uses **AWS Organizations**, **Control Tower**, or mandatory **IA
 
 - [ ] **Repository hygiene.** You never commit **access keys**, **session tokens**, **passwords**, `terraform.tfvars` with real values, or Terraform **state** to git. Follow `.gitignore` and the guidance in the repository **`infra/README.md`**.
 
+When the checklist is complete, continue with [Provision AWS hosting](provision-aws-hosting.md) to run Terraform and create the hosting resources.
+
 ## What this checklist does not cover
 
 It does not walk through [creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html), organization-level guardrails, or service-specific tutorials. Use [AWS Documentation](https://docs.aws.amazon.com/) for those topics.
