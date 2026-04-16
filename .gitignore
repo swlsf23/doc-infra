@@ -6,3 +6,17 @@ __pycache__/
 
 # Build output; may be tracked later if we ship generated HTML as the official site docs.
 output/
+
+# Terraform (keep .terraform.lock.hcl committed for reproducible init)
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+terraform.tfvars
+*.auto.tfvars
+!*.tfvars.example
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json

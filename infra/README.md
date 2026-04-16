@@ -8,7 +8,7 @@ Nothing here is required to **build** the site locally. That is still: manifest 
 
 | Piece | Purpose |
 | --- | --- |
-| **`terraform/`** (planned) | Terraform **root module**: private **S3** bucket for static files, **CloudFront** distribution in front of it, **Origin Access Control (OAC)** so the bucket stays private (no public bucket ACLs), and an S3 bucket policy that only allows CloudFront to read objects. |
+| **`terraform/`** | Terraform **root module** under [`terraform/`](terraform/): private **S3** bucket for static files, **CloudFront** distribution in front of it, **Origin Access Control (OAC)** so the bucket stays private (no public bucket ACLs), and an S3 bucket policy that only allows CloudFront to read objects. |
 | **Deploy script** (planned, e.g. `../scripts/deploy-site-to-s3.sh`) | Upload the built site with `aws s3 sync`, set sensible **Cache-Control** for HTML entrypoints where needed, then **invalidate** the CloudFront distribution so visitors see new content quickly. |
 | **GitHub Actions** (planned, `.github/workflows/deploy.yml`) | On push to `main` (and manual runs), install Python dependencies, run the three build commands, assume an IAM role via **OIDC** (no long-lived AWS keys in GitHub), then run the deploy script. |
 
@@ -62,6 +62,6 @@ Terraform may create an IAM **OIDC** trust for `token.actions.githubusercontent.
 
 1. Clone your fork and follow the [root README](../README.md) to build locally.
 2. Install [Terraform](https://www.terraform.io/) (>= 1.5) and configure AWS credentials (e.g. `aws configure sso` or environment variables).
-3. Copy `terraform.tfvars.example` to `terraform.tfvars`, set a **globally unique** bucket name and your AWS settings; set `github_repository` if you use OIDC.
-4. Run `terraform init`, `terraform plan`, `terraform apply` under `infra/terraform/` (once present).
+3. In `infra/terraform/`, copy `terraform.tfvars.example` to `terraform.tfvars` and set a **globally unique** bucket name and your AWS settings.
+4. Run `terraform init`, `terraform plan`, and `terraform apply` in `infra/terraform/`.
 5. Configure GitHub **Secrets** and **Variables** if you use Actions, or deploy from your machine using the deploy script and the same bucket and distribution ID.
