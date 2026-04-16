@@ -15,6 +15,11 @@ Manual table of contents for the sample documentation. (Replace with an autogene
 - [Manifest introduction](getting-started/manifest-intro.md)
 - [Next steps](getting-started/next-steps.md)
 
+## Infra
+
+- [Setup: environment](infra/setup-environment.md)
+- [AWS account checklist](infra/aws-account-checklist.md)
+
 ## Guides
 
 - [Pipeline stages](guides/pipeline-stages.md)

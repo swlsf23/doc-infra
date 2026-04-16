@@ -17,6 +17,9 @@ sources:
     publishing.md:
     troubleshooting.md:
     writing-markdown.md:
+  infra:
+    setup-environment.md:
+    aws-account-checklist.md:
   reference:
     changelog-snippet.md:
     conventions.md:
