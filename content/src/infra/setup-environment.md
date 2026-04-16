@@ -16,23 +16,25 @@ It is possible to create the AWS assets manually, without using these tools.
 If you skip Homebrew, install the AWS CLI and Terraform from the official AWS and HashiCorp installers and adapt the verification steps.
 :::
 
-These procedures assume **macOS** and that **[Homebrew](https://brew.sh)** is installed. Homebrew is a prerequisite because it gives **one** supported way to install the command-line tools we rely on (for example Terraform and the AWS CLI) with predictable paths and straightforward upgrades. The steps below install each tool **explicitly** in its own subsection; we do not use a single combined install command.
+These procedures assume that **[Homebrew](https://brew.sh)** is installed. Homebrew is a prerequisite because it gives **one** supported way to install the command-line tools we rely on (for example Terraform and the AWS CLI) with predictable paths and straightforward upgrades. Each subsection below installs one tool; we do not use a single combined install command.
 
 To install Homebrew:
 
-1. Open **Terminal**.
-2. Run the install script from the Homebrew project. See [Homebrew](https://brew.sh) for the exact command if the line below does not match your environment. The usual command is:
+1. Open a terminal.
 
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
+1. Run the install script from the Homebrew project. See [Homebrew](https://brew.sh) for the exact command if the line below does not match your environment. The usual command is:
 
-3. Complete the prompts in the installer. On Macs with Apple silicon, the installer prints **Next steps** that add `brew` to your `PATH`. Run those commands in **Terminal** before you continue.
-4. Confirm Homebrew works:
+    ```bash
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ```
 
-   ```bash
-   brew --version
-   ```
+1. Complete the prompts in the installer. If the installer prints commands that add `brew` to your `PATH`, run them before you continue.
+
+1. Confirm Homebrew is on your `PATH` and responding:
+
+    ```bash
+    brew --version
+    ```
 
 ## AWS CLI
 
@@ -40,33 +42,46 @@ To install the **AWS Command Line Interface (AWS CLI)** with Homebrew:
 
 1. Run:
 
-   ```bash
-   brew install awscli
-   ```
+    ```bash
+    brew install awscli
+    ```
 
-2. Confirm the install:
+1. Confirm the AWS CLI is on your `PATH`:
 
-   ```bash
-   aws --version
-   ```
+    ```bash
+    aws --version
+    ```
 
 See [Installing or updating the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you need an install path other than Homebrew.
 
 ## Terraform
 
+Homebrew installs software from **formula repositories** (collections of build and install definitions). The built-in repository is **homebrew-core**. 
+
+A **tap** is an **additional** formula repository—usually a Git repository on GitHub—that Homebrew registers on your computer when you run `brew tap`. After a tap is added, `brew install` can resolve packages defined in that repository. HashiCorp distributes Terraform through their own tap so releases align with [HashiCorp’s published packages](https://developer.hashicorp.com/terraform/install).
+
 To install **Terraform** with Homebrew:
 
-1. Run:
+1. Add the HashiCorp formula repository and install Terraform:
 
-   ```bash
-   brew install terraform
-   ```
+    ```bash
+    brew tap hashicorp/tap
+    brew install hashicorp/tap/terraform
+    ```
 
-2. Confirm the install:
+    `brew tap hashicorp/tap` registers the repository only. `brew install hashicorp/tap/terraform` downloads and installs the Terraform CLI.
 
-   ```bash
-   terraform version
-   ```
+1. Confirm the Terraform CLI is on your `PATH`:
+
+    ```bash
+    terraform version
+    ```
+
+    Example shape (your version and platform strings will differ):
+
+    ```text
+    Terraform v<version>
+    on <platform>
+    ```
 
 See [Install Terraform](https://developer.hashicorp.com/terraform/install) if you need an install path other than Homebrew.
-
