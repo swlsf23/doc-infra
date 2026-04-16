@@ -20,6 +20,7 @@ Manual table of contents for the sample documentation. (Replace with an autogene
 - [Setup: environment](infra/setup-environment.md)
 - [AWS account checklist](infra/aws-account-checklist.md)
 - [Provision AWS hosting](infra/provision-aws-hosting.md)
+- [Custom domain requirements](infra/custom-domain-requirements.md)
 
 ## Guides
 

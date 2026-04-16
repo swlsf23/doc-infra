@@ -21,6 +21,7 @@ sources:
     setup-environment.md:
     aws-account-checklist.md:
     provision-aws-hosting.md:
+    custom-domain-requirements.md:
   reference:
     changelog-snippet.md:
     conventions.md:
