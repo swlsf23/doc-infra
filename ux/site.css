@@ -31,7 +31,7 @@
   --doc-control-pad-y: 0.38rem;
   --doc-control-pad-x: 0.75rem;
   --doc-control-radius: 6px;
-  --doc-control-font: 0.8125rem;
+  --doc-control-font: 0.9rem;
   /* Header GitHub (red pill) */
   --doc-github-fg: #991b1b;
   --doc-github-bg: rgb(153 27 27 / 0.12);
@@ -62,7 +62,9 @@ body {
   flex-wrap: nowrap;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem 0 0.25rem;
+  padding: 0.35rem 0 0.35rem;
+  margin-bottom: 0.1rem;
+  border-bottom: 1px solid var(--doc-border);
 }
 
 .doc-header-start {
@@ -85,6 +87,54 @@ body {
   min-width: 0;
   max-width: 100%;
   overflow-x: auto;
+}
+
+.doc-brand {
+  color: var(--doc-text-heading);
+  font-size: 1.16rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+
+.doc-brand:hover {
+  color: #1f2937;
+  text-decoration: none;
+}
+
+.doc-brand:focus-visible {
+  outline: 2px solid var(--doc-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.doc-header-links {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-left: 0.4rem;
+}
+
+.doc-header-link {
+  color: var(--doc-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.24rem 0.46rem;
+  border-radius: 6px;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.doc-header-link:hover {
+  color: var(--doc-text-heading);
+  background: rgb(15 13 20 / 0.04);
+}
+
+.doc-header-link:focus-visible {
+  outline: 2px solid var(--doc-accent);
+  outline-offset: 2px;
 }
 
 .doc-header-btn {
@@ -123,28 +173,40 @@ body {
 }
 
 .doc-header-btn--github {
-  color: var(--doc-github-fg);
-  background: var(--doc-github-bg);
-  border-color: var(--doc-github-border);
+  min-width: 2rem;
+  padding: 0.34rem 0.5rem;
+  color: var(--doc-text-muted);
+  background: transparent;
+  border-color: var(--doc-border);
 }
 
 .doc-header-btn--github:hover {
-  background: var(--doc-github-bg-strong);
-  color: var(--doc-github-fg);
+  background: rgb(15 13 20 / 0.04);
+  color: var(--doc-text-heading);
 }
 
 .doc-header-btn--github:focus-visible {
-  outline-color: var(--doc-github-fg);
-}
-
-.doc-header-btn--github span {
-  position: relative;
-  top: 0.5px;
+  outline-color: var(--doc-accent);
 }
 
 .doc-header-github-icon {
   flex-shrink: 0;
-  opacity: 0.95;
+  width: 22px;
+  height: 22px;
+  opacity: 0.9;
+}
+
+.doc-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .doc-nav-toggle-label.doc-header-btn:has(.doc-nav-toggle-input:focus-visible) {
@@ -549,6 +611,21 @@ body.doc-nav-body .doc-nav {
 
 /* Narrow viewports: show nav OR main, not side-by-side (toggle = nav collapsed). */
 @media (max-width: 48rem) {
+  .doc-header {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .doc-header-start {
+    flex-wrap: wrap;
+    row-gap: 0.3rem;
+  }
+
+  .doc-header-links {
+    margin-left: 0;
+    width: 100%;
+  }
+
   .doc-layout {
     flex-direction: column;
     align-items: stretch;

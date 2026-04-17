@@ -89,22 +89,35 @@ def wrap_nav_page(*, nav_inner_html: str, stylesheet_href: str) -> str:
 
 
 def _header_fragment(*, home_href: str, github_url: str | None) -> str:
-    """Top bar: Home left; optional GitHub flush right (single row; nav toggle stays in sidebar)."""
+    """Top utility bar: brand left, optional GitHub action right."""
     import html as html_module
 
     safe_home = html_module.escape(home_href, quote=True)
-    home_html = f'<a class="doc-header-btn doc-header-btn--home" href="{safe_home}">Home</a>'
+    brand_html = f'<a class="doc-brand" href="{safe_home}" aria-label="Go to docs home">Doc Infra</a>'
+    prefix = home_href[: -len("index.html")] if home_href.endswith("index.html") else ""
+    top_links = (
+        ("Getting Started", f"{prefix}getting-started/overview.html"),
+        ("Guides", f"{prefix}guides/pipeline-stages.html"),
+        ("Reference", f"{prefix}reference/glossary.html"),
+    )
+    links_html = "".join(
+        f'<a class="doc-header-link" href="{html_module.escape(href, quote=True)}">{html_module.escape(label)}</a>'
+        for label, href in top_links
+    )
     if github_url:
         gu = html_module.escape(github_url, quote=True)
         github_html = (
             f'<a class="doc-header-btn doc-header-btn--github" href="{gu}" '
             f'rel="noopener noreferrer" target="_blank">'
             f"{_GITHUB_ICON_SVG}"
-            "<span>GitHub</span></a>"
+            '<span class="doc-sr-only">GitHub</span></a>'
         )
         return f"""    <header class="doc-header">
       <div class="doc-header-start">
-        {home_html}
+        {brand_html}
+        <nav class="doc-header-links" aria-label="Top-level sections">
+          {links_html}
+        </nav>
       </div>
       <div class="doc-header-end" role="group" aria-label="Site actions">
         {github_html}
@@ -113,7 +126,10 @@ def _header_fragment(*, home_href: str, github_url: str | None) -> str:
 """
     return f"""    <header class="doc-header">
       <div class="doc-header-start">
-        {home_html}
+        {brand_html}
+        <nav class="doc-header-links" aria-label="Top-level sections">
+          {links_html}
+        </nav>
       </div>
     </header>
 """
