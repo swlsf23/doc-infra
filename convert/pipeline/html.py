@@ -24,9 +24,25 @@ import html
 import re
 from pathlib import Path
 
+from bs4 import BeautifulSoup
+
 _TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.IGNORECASE | re.DOTALL)
 _BODY_RE = re.compile(r"<body[^>]*>(.*?)</body>", re.IGNORECASE | re.DOTALL)
 _H1_RE = re.compile(r"<h1[^>]*>(.*?)</h1>", re.IGNORECASE | re.DOTALL)
+_HEADING_RE = re.compile(r"^h[1-6]$", re.IGNORECASE)
+_BLOCK_TAGS = {
+    "aside",
+    "article",
+    "blockquote",
+    "div",
+    "dl",
+    "ol",
+    "p",
+    "pre",
+    "section",
+    "table",
+    "ul",
+}
 _ADMONITION_TITLE_LINE_RE = re.compile(
     r"^\s*<(?:p|h[1-6]|strong)\b[^>]*>(.*?)</(?:p|h[1-6]|strong)>\s*",
     re.IGNORECASE | re.DOTALL,
@@ -93,6 +109,24 @@ def normalize_html_admonitions(fragment_html: str) -> str:
     return out
 
 
+def _repair_heading_block_nesting(soup: BeautifulSoup) -> None:
+    """Move block-level children out of headings if malformed input nests them."""
+    if soup.body is None:
+        return
+    for heading in soup.body.find_all(_HEADING_RE):
+        extracted_blocks = []
+        for child in list(heading.contents):
+            child_name = getattr(child, "name", None)
+            if child_name and child_name.lower() in _BLOCK_TAGS:
+                extracted_blocks.append(child.extract())
+        if not extracted_blocks:
+            continue
+        anchor = heading
+        for node in extracted_blocks:
+            anchor.insert_after(node)
+            anchor = node
+
+
 def _collapse_text(value: str) -> str:
     text = re.sub(r"<[^>]+>", " ", value)
     text = html.unescape(text)
@@ -139,11 +173,15 @@ def title_from_html_or_path(raw_html: str, source_path: Path) -> str:
 
 
 def body_fragment_from_html_source(raw_html: str) -> str:
-    """Return body inner HTML when present; otherwise return trimmed source."""
-    bm = _BODY_RE.search(raw_html)
-    if bm:
-        return normalize_html_admonitions(bm.group(1).strip())
-    return normalize_html_admonitions(raw_html.strip())
+    """Parse with a tolerant HTML5 parser and return normalized body fragment."""
+    soup = BeautifulSoup(raw_html, "html5lib")
+    _repair_heading_block_nesting(soup)
+    body = soup.body
+    if body is None:
+        fragment = raw_html.strip()
+    else:
+        fragment = "".join(str(child) for child in body.contents).strip()
+    return normalize_html_admonitions(fragment)
 
 
 def wrap_fragment_html(title: str, body_html: str) -> str:
