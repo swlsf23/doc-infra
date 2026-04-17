@@ -17,6 +17,17 @@ sources:
     publishing.md:
     troubleshooting.md:
     writing-markdown.md:
+  HTML:
+    admonition-variants.html:
+    code-variants.html:
+    deep-nesting-mixed.html:
+    fragment-only.html:
+    full-document-basic.html:
+    heading-id-collisions.html:
+    legacy-classes.html:
+    malformed-but-tolerable.html:
+    metadata-heavy.html:
+    table-variants.html:
   infra:
     aws-account-checklist.md:
     custom-domain-requirements.md:

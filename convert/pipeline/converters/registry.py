@@ -37,8 +37,10 @@ def registered_converter_ids() -> tuple[str, ...]:
 
 
 def _load_builtin_converters() -> None:
+    from pipeline.converters.html.identity import IdentityHtmlConverter
     from pipeline.converters.markdown.mistune.mistune import MistuneMarkdownConverter
 
+    register_converter("html", IdentityHtmlConverter)
     register_converter("markdown", MistuneMarkdownConverter)
 
 

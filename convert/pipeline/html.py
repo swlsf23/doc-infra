@@ -24,6 +24,80 @@ import html
 import re
 from pathlib import Path
 
+_TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.IGNORECASE | re.DOTALL)
+_BODY_RE = re.compile(r"<body[^>]*>(.*?)</body>", re.IGNORECASE | re.DOTALL)
+_H1_RE = re.compile(r"<h1[^>]*>(.*?)</h1>", re.IGNORECASE | re.DOTALL)
+_ADMONITION_TITLE_LINE_RE = re.compile(
+    r"^\s*<(?:p|h[1-6]|strong)\b[^>]*>(.*?)</(?:p|h[1-6]|strong)>\s*",
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+def _render_canonical_admonition(kind: str, title: str, body_html: str) -> str:
+    return (
+        f'<aside class="admonition admonition-{kind}" role="note">\n'
+        f'<p class="admonition-title">{html.escape(title, quote=False)}</p>\n'
+        f'<div class="admonition-body">\n{body_html.strip()}\n</div>\n'
+        f"</aside>"
+    )
+
+
+def _normalize_admonition_block(inner_html: str, default_title: str, kind: str) -> str:
+    inner = inner_html.strip()
+    title = default_title
+
+    m_callout = re.match(
+        r'\s*<p\b[^>]*class="[^"]*\bcallout-title\b[^"]*"[^>]*>(.*?)</p>\s*',
+        inner,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    if m_callout:
+        title_text = _collapse_text(m_callout.group(1)).rstrip(":")
+        if title_text:
+            title = title_text
+        inner = inner[m_callout.end() :].lstrip()
+    else:
+        m_title = _ADMONITION_TITLE_LINE_RE.match(inner)
+        if m_title:
+            title_text = _collapse_text(m_title.group(1)).rstrip(":")
+            if title_text:
+                title = title_text
+            inner = inner[m_title.end() :].lstrip()
+
+    return _render_canonical_admonition(kind=kind, title=title, body_html=inner)
+
+
+def normalize_html_admonitions(fragment_html: str) -> str:
+    """Normalize common raw HTML callout/admonition variants to canonical markup."""
+    out = fragment_html
+
+    out = re.sub(
+        r'<aside\b[^>]*class="[^"]*\bnote\b[^"]*"[^>]*>(.*?)</aside>',
+        lambda m: _normalize_admonition_block(m.group(1), default_title="Note", kind="note"),
+        out,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    out = re.sub(
+        r'<div\b[^>]*class="[^"]*\balert-warning\b[^"]*"[^>]*>(.*?)</div>',
+        lambda m: _normalize_admonition_block(m.group(1), default_title="Warning", kind="warning"),
+        out,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    out = re.sub(
+        r'<section\b[^>]*class="[^"]*\bcallout\b[^"]*\bcaution\b[^"]*"[^>]*>(.*?)</section>',
+        lambda m: _normalize_admonition_block(m.group(1), default_title="Caution", kind="caution"),
+        out,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+
+    return out
+
+
+def _collapse_text(value: str) -> str:
+    text = re.sub(r"<[^>]+>", " ", value)
+    text = html.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
 
 def title_from_markdown_or_path(markdown: str, source_path: Path) -> str:
     """Pick a human-readable page title for ``<title>`` and related uses.
@@ -46,6 +120,30 @@ def title_from_markdown_or_path(markdown: str, source_path: Path) -> str:
         return m.group(1).strip()
     stem = source_path.stem.replace("-", " ").replace("_", " ")
     return stem.title() if stem else source_path.name
+
+
+def title_from_html_or_path(raw_html: str, source_path: Path) -> str:
+    """Pick a title from HTML (<title>, then first <h1>, then file name)."""
+    tm = _TITLE_RE.search(raw_html)
+    if tm:
+        title_text = _collapse_text(tm.group(1))
+        if title_text:
+            return title_text
+    hm = _H1_RE.search(raw_html)
+    if hm:
+        heading_text = _collapse_text(hm.group(1))
+        if heading_text:
+            return heading_text
+    stem = source_path.stem.replace("-", " ").replace("_", " ")
+    return stem.title() if stem else source_path.name
+
+
+def body_fragment_from_html_source(raw_html: str) -> str:
+    """Return body inner HTML when present; otherwise return trimmed source."""
+    bm = _BODY_RE.search(raw_html)
+    if bm:
+        return normalize_html_admonitions(bm.group(1).strip())
+    return normalize_html_admonitions(raw_html.strip())
 
 
 def wrap_fragment_html(title: str, body_html: str) -> str:
