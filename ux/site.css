@@ -203,7 +203,6 @@ body {
   padding: 1.25rem 1.5rem;
   background: var(--doc-bg);
   border: 1px solid var(--doc-border);
-  border-left: 3px solid var(--doc-accent);
   border-radius: 12px;
   box-shadow: var(--doc-card-shadow);
 }
@@ -357,12 +356,18 @@ body.doc-nav-body .doc-nav {
   margin-top: 0.2rem;
 }
 
+.doc-nav {
+  --doc-nav-disclosure-space: 1.3rem;
+}
+
 .doc-nav-summary {
   cursor: pointer;
   list-style: none;
   font-weight: 600;
   color: var(--doc-text-heading);
-  padding: 0.15rem 0;
+  position: relative;
+  display: block;
+  padding: 0.15rem 0 0.15rem var(--doc-nav-disclosure-space);
 }
 
 .doc-nav-summary::-webkit-details-marker {
@@ -371,24 +376,31 @@ body.doc-nav-body .doc-nav {
 
 .doc-nav-summary::before {
   content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.1rem;
   display: inline-block;
-  width: 0.35em;
-  height: 0.35em;
-  margin-right: 0.35em;
+  width: 0.42em;
+  height: 0.42em;
+  margin: 0;
   border-right: 2px solid var(--doc-text-muted);
   border-bottom: 2px solid var(--doc-text-muted);
-  transform: rotate(-45deg);
+  transform: translateY(-50%) rotate(-45deg);
   transition: transform 0.15s ease;
-  vertical-align: 0.15em;
 }
 
 .doc-nav-details[open] > .doc-nav-summary::before {
-  transform: rotate(45deg);
-  vertical-align: 0.05em;
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .doc-nav-summary a {
   font-weight: 600;
+}
+
+/* Align top-level non-expandable nodes with expandable node text (after disclosure arrow). */
+.doc-nav > ul > li > a {
+  display: block;
+  padding-left: var(--doc-nav-disclosure-space);
 }
 
 .doc-nav a {
@@ -406,6 +418,7 @@ body.doc-nav-body .doc-nav {
 .doc-nav > ul > li > .doc-nav-details > .doc-nav-summary,
 .doc-nav > ul > li > .doc-nav-details > .doc-nav-summary > a {
   font-weight: 600;
+  color: var(--doc-text-heading);
 }
 
 /* Current page (set by nav.js from ?c=) — blue highlight */
@@ -423,6 +436,12 @@ body.doc-nav-body .doc-nav {
   background: var(--doc-current-bg);
   border-left: 3px solid var(--doc-current-border);
   border-radius: 0 5px 5px 0;
+}
+
+/* Keep current top-level non-expandable node (e.g. Home) aligned with branch labels. */
+.doc-nav > ul > li > a.doc-nav-link--current,
+.doc-nav > ul > li > a[aria-current="page"] {
+  padding-left: calc(0.4rem + var(--doc-nav-disclosure-space));
 }
 
 .doc-nav a.doc-nav-link--current:hover,
