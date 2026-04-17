@@ -18,10 +18,10 @@ sources:
     troubleshooting.md:
     writing-markdown.md:
   infra:
-    setup-environment.md:
     aws-account-checklist.md:
-    provision-aws-hosting.md:
     custom-domain-requirements.md:
+    provision-aws-hosting.md:
+    setup-environment.md:
   reference:
     changelog-snippet.md:
     conventions.md:
@@ -31,18 +31,6 @@ sources:
     glossary.md:
     yaml-keys.md:
   ux-lab:
-    long-form:
-      overview.md:
-      chapter-one.md:
-      chapter-two.md:
-      chapter-three.md:
-      very-long-scroll-test.md:
-    layouts:
-      aside-blocks.md:
-      dense-lists.md:
-      responsive-notes.md:
-      tables-and-code.md:
-      wide-content.md:
     deep:
       branch-alpha:
         topic-a1.md:
@@ -60,3 +48,15 @@ sources:
           leaf-2.md:
           leaf-3.md:
           leaf-4.md:
+    layouts:
+      aside-blocks.md:
+      dense-lists.md:
+      responsive-notes.md:
+      tables-and-code.md:
+      wide-content.md:
+    long-form:
+      chapter-one.md:
+      chapter-three.md:
+      chapter-two.md:
+      overview.md:
+      very-long-scroll-test.md:
