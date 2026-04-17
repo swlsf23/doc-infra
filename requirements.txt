@@ -1,2 +1,4 @@
 ruamel.yaml>=0.18.0
 mistune>=3.0.0
+beautifulsoup4>=4.12.0
+html5lib>=1.1

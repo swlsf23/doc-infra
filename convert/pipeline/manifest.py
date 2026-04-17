@@ -1,4 +1,4 @@
-"""Parse manifest YAML and collect Markdown paths from nested ``sources`` trees."""
+"""Parse manifest YAML and collect source paths from nested ``sources`` trees."""
 
 from __future__ import annotations
 
@@ -11,8 +11,13 @@ from ruamel.yaml import YAML
 _yaml_safe = YAML(typ="safe")
 
 FILES_KEY = "files"
+SOURCE_EXTENSIONS = (".md", ".html")
 
 DEFAULT_MANIFEST_VERSION = 1
+
+
+def _is_source_file(name: str) -> bool:
+    return name.endswith(SOURCE_EXTENSIONS)
 
 
 def load_manifest_sources(manifest_path: Path) -> dict[str, Any]:
@@ -72,7 +77,7 @@ def _normalize_legacy_files_node(node: dict[str, Any]) -> dict[str, Any]:
 def _normalize_compact_node(node: dict[str, Any]) -> dict[str, Any]:
     out: dict[str, Any] = {}
     for key, val in node.items():
-        if key.endswith(".md"):
+        if _is_source_file(key):
             if val is None or val == {}:
                 out[key] = None
             elif isinstance(val, dict):
@@ -87,7 +92,7 @@ def _normalize_compact_node(node: dict[str, Any]) -> dict[str, Any]:
 
 
 def collect_paths_from_tree(tree: dict[str, Any], prefix: tuple[str, ...] = ()) -> set[str]:
-    """Collect every Markdown path (POSIX, relative to content root)."""
+    """Collect every source path (POSIX, relative to content root)."""
     out: set[str] = set()
     files = tree.get(FILES_KEY)
     if files is not None:
@@ -106,7 +111,7 @@ def collect_paths_from_tree(tree: dict[str, Any], prefix: tuple[str, ...] = ()) 
         return out
 
     for key, val in tree.items():
-        if key.endswith(".md"):
+        if _is_source_file(key):
             if val is None:
                 out.add("/".join((*prefix, key)))
             elif isinstance(val, dict):
@@ -126,7 +131,7 @@ def _paths_nested_under_page(
 ) -> set[str]:
     out: set[str] = set()
     for ck, cv in node.items():
-        if ck.endswith(".md"):
+        if _is_source_file(ck):
             if cv is None or cv == {}:
                 out.add("/".join((*parent_dir_prefix, ck)))
             elif isinstance(cv, dict):
@@ -158,12 +163,12 @@ def insert_path_parts(tree: dict[str, Any], parts: list[str]) -> None:
         return
     if len(parts) == 1:
         name = parts[0]
-        if not name.endswith(".md"):
-            raise ValueError(f"expected a .md file, got {name!r}")
+        if not _is_source_file(name):
+            raise ValueError(f"expected one of {SOURCE_EXTENSIONS!r}, got {name!r}")
         tree[name] = None
         return
     head, *rest = parts
-    if head.endswith(".md"):
+    if _is_source_file(head):
         raise ValueError(f"cannot traverse past file segment {head!r}")
     child = tree.setdefault(head, {})
     if not isinstance(child, dict):

@@ -1,4 +1,4 @@
-r"""Convert Markdown listed in the manifest to HTML files.
+r"""Convert manifest-listed source documents to HTML files.
 
 Reads ``input_dir``, ``manifest_path``, ``html_output_dir``, ``converter``,
 ``markdown_directives`` (optional), and ``on_existing_html`` from ``config.yml``
@@ -11,7 +11,8 @@ Reads ``input_dir``, ``manifest_path``, ``html_output_dir``, ``converter``,
 - ``stop``: if any target ``.html`` already exists, exit with an error and write
   nothing.
 
-For each ``*.md`` path in the manifest, writes ``<same-relative-path>.html`` under
+For each supported source path in the manifest, writes
+``<same-relative-path>.html`` under
 ``html_output_dir``, using the configured :class:`~pipeline.converters.base.DocumentConverter`.
 """
 
@@ -24,15 +25,29 @@ from typing import Any
 
 from pipeline.config import CONFIG_NAME, load_config, resolve_path
 from pipeline.converters.registry import get_converter
-from pipeline.html import title_from_markdown_or_path, wrap_fragment_html
+from pipeline.html import (
+    body_fragment_from_html_source,
+    title_from_html_or_path,
+    title_from_markdown_or_path,
+    wrap_fragment_html,
+)
 from pipeline.manifest import collect_paths_from_tree, load_manifest_sources
 
 
-def md_to_html_path(rel_md: str) -> str:
-    """Map ``guides/foo.md`` to ``guides/foo.html``."""
-    if not rel_md.endswith(".md"):
-        raise ValueError(f"expected .md path, got {rel_md!r}")
-    return f"{rel_md[:-3]}.html"
+def source_to_html_path(rel_source: str) -> str:
+    """Map supported source paths to their output ``.html`` path."""
+    if rel_source.endswith(".md"):
+        return f"{rel_source[:-3]}.html"
+    if rel_source.endswith(".html"):
+        return rel_source
+    raise ValueError(f"expected supported source path, got {rel_source!r}")
+
+
+def converter_for_path(rel_source: str, default_converter: str) -> str:
+    """Select converter id based on source extension."""
+    if rel_source.endswith(".html"):
+        return "html"
+    return default_converter
 
 
 def convert_all(
@@ -57,17 +72,14 @@ def convert_all(
 
     sources = load_manifest_sources(manifest_path)
     paths = sorted(collect_paths_from_tree(sources))
-    converter = get_converter(
-        converter_name,
-        directives_enabled=markdown_directives,
-    )
+    converters: dict[str, Any] = {}
     errors: list[str] = []
     skipped = 0
 
     if on_existing_html == "stop":
         collisions: list[str] = []
         for rel in paths:
-            out_path = html_output_dir / md_to_html_path(rel)
+            out_path = html_output_dir / source_to_html_path(rel)
             if out_path.is_file():
                 collisions.append(str(out_path))
         if collisions:
@@ -85,7 +97,7 @@ def convert_all(
         if not src.is_file():
             errors.append(f"missing source file: {src} (manifest: {rel})")
             continue
-        out_rel = md_to_html_path(rel)
+        out_rel = source_to_html_path(rel)
         out_path = html_output_dir / out_rel
         if on_existing_html == "skip" and out_path.is_file():
             skipped += 1
@@ -93,11 +105,27 @@ def convert_all(
 
         text = src.read_text(encoding="utf-8")
         try:
-            fragment = converter.convert(text, source_path=src)
+            converter_id = converter_for_path(rel, converter_name)
+            converter = converters.get(converter_id)
+            if converter is None:
+                if converter_id == "markdown":
+                    converter = get_converter(
+                        converter_id,
+                        directives_enabled=markdown_directives,
+                    )
+                else:
+                    converter = get_converter(converter_id)
+                converters[converter_id] = converter
+            converted = converter.convert(text, source_path=src)
         except Exception as e:
             errors.append(f"{rel}: conversion failed: {e}")
             continue
-        title = title_from_markdown_or_path(text, src)
+        if rel.endswith(".md"):
+            fragment = converted
+            title = title_from_markdown_or_path(text, src)
+        else:
+            fragment = body_fragment_from_html_source(converted)
+            title = title_from_html_or_path(converted, src)
         full_html = wrap_fragment_html(title, fragment)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(full_html, encoding="utf-8")

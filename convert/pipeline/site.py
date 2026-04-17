@@ -9,7 +9,7 @@ from typing import Any
 from urllib.parse import quote
 
 from pipeline.manifest import collect_paths_from_tree, load_manifest_sources
-from pipeline.navigation import md_path_to_html_rel, relative_href, render_nav_html
+from pipeline.navigation import relative_href, render_nav_html, source_path_to_html_rel
 
 # Single site-wide navigation document (iframe target); links use <base target="_parent">.
 NAV_HTML = "nav.html"
@@ -245,7 +245,7 @@ def build_site(
         errors.append(f"missing site script: {site_js_path}")
         return 0, errors
 
-    nav_inner = render_nav_html(sources, from_html=NAV_HTML, current_md=None)
+    nav_inner = render_nav_html(sources, from_html=NAV_HTML, current_source=None)
     nav_css_href = relative_href(NAV_HTML, "assets/site.css")
     nav_path = site_output_dir / NAV_HTML
     nav_path.write_text(
@@ -254,19 +254,19 @@ def build_site(
     )
 
     n = 0
-    for md_rel in paths:
-        raw_rel = md_path_to_html_rel(md_rel)
+    for source_rel in paths:
+        raw_rel = source_path_to_html_rel(source_rel)
         raw_path = html_output_dir / raw_rel
         if not raw_path.is_file():
-            errors.append(f"missing raw HTML (run convert first): {raw_path} ({md_rel})")
+            errors.append(f"missing raw HTML (run convert first): {raw_path} ({source_rel})")
             continue
         raw_html = raw_path.read_text(encoding="utf-8")
         title, body_inner = extract_title_and_body(raw_html)
-        cur_html = md_path_to_html_rel(md_rel)
+        cur_html = source_path_to_html_rel(source_rel)
         css_href = relative_href(cur_html, "assets/site.css")
         site_js_href = relative_href(cur_html, "assets/site.js")
         nav_rel = relative_href(cur_html, NAV_HTML)
-        nav_iframe_src = f"{nav_rel}?c={quote(md_rel, safe='')}"
+        nav_iframe_src = f"{nav_rel}?c={quote(source_rel, safe='')}"
         home_href = relative_href(cur_html, SITE_INDEX_HTML)
         page_html = wrap_site_page(
             title=title,
