@@ -520,3 +520,50 @@ body.doc-nav-body .doc-nav {
 .doc-main .admonition-note .admonition-title {
   color: var(--doc-accent);
 }
+
+/* Narrow viewports: show nav OR main, not side-by-side (toggle = nav collapsed). */
+@media (max-width: 48rem) {
+  .doc-layout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+    padding: 1rem 1rem;
+  }
+
+  .doc-sidebar {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+    padding-right: 0;
+    border-right: none;
+    align-self: stretch;
+  }
+
+  /* Checkbox unchecked = nav open → only navigation */
+  .doc-root:not(:has(.doc-nav-toggle-input:checked)) .doc-main {
+    display: none;
+  }
+
+  .doc-root:not(:has(.doc-nav-toggle-input:checked)) .doc-nav-frame {
+    flex: 1 1 auto;
+    min-height: min(72vh, calc(100dvh - 11rem));
+    max-height: calc(100dvh - 11rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .doc-root:not(:has(.doc-nav-toggle-input:checked)) .doc-nav-iframe {
+    min-height: min(68vh, calc(100dvh - 12rem));
+  }
+
+  /* Checkbox checked = nav collapsed → main content (iframe hidden by existing rules) */
+  .doc-root:has(.doc-nav-toggle-input:checked) .doc-main {
+    width: 100%;
+  }
+
+  .doc-root:has(.doc-nav-toggle-input:checked) .doc-sidebar {
+    width: 100%;
+    max-width: none;
+  }
+}
