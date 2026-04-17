@@ -9,7 +9,7 @@ Nothing here is required to **build** the site locally. That is still: manifest 
 | Piece | Purpose |
 | --- | --- |
 | **`terraform/`** | Terraform **root module** under [`terraform/`](terraform/): private **S3** bucket for static files, **CloudFront** distribution in front of it, **Origin Access Control (OAC)** so the bucket stays private (no public bucket ACLs), and an S3 bucket policy that only allows CloudFront to read objects. |
-| **Deploy script** (planned, e.g. `../scripts/deploy-site-to-s3.sh`) | Upload the built site with `aws s3 sync`, set sensible **Cache-Control** for HTML entrypoints where needed, then **invalidate** the CloudFront distribution so visitors see new content quickly. |
+| **[`release/publish-site.sh`](../release/publish-site.sh)** | From repo root: build (manifest → convert → site), **`aws s3 sync`** **`output/site/`** to **`s3://$SITE_S3_BUCKET/${SITE_S3_PREFIX:-doc-infra}/`**, then invalidates **`/$SITE_S3_PREFIX/*`**. Locally, define **`SITE_S3_BUCKET`**, **`CLOUDFRONT_DISTRIBUTION_ID`**, and optional **`SITE_S3_PREFIX`** in gitignored **`release/publish.local`** (sourced automatically); CI sets the same variables in the environment. |
 | **GitHub Actions** (planned, `.github/workflows/deploy.yml`) | On push to `main` (and manual runs), install Python dependencies, run the three build commands, assume an IAM role via **OIDC** (no long-lived AWS keys in GitHub), then run the deploy script. |
 
 **Baseline (phase 1):** use the **default CloudFront HTTPS URL** (`*.cloudfront.net`). **Custom domain, ACM certificate, and Route 53** are optional later enhancements so a minimal fork works without DNS.
@@ -28,7 +28,7 @@ python code/convert.py
 python code/build_site.py
 ```
 
-Then sync **`output/site/`** to S3 and invalidate CloudFront (once the deploy script exists).
+Then run **[`release/publish-site.sh`](../release/publish-site.sh)** (with **`release/publish.local`** or env vars set) to sync **`output/site/`** to S3 and invalidate CloudFront.
 
 ## Terraform outputs (intended)
 
@@ -49,6 +49,7 @@ Forks that enable the workflow will set:
 | --- | --- | --- |
 | Secret | `AWS_ROLE_ARN` | IAM role ARN from Terraform (OIDC trust for GitHub). |
 | Variable | `SITE_S3_BUCKET` | S3 bucket name. |
+| Variable | `SITE_S3_PREFIX` | Optional; S3 key prefix (for example **`doc-infra`**). Match the path pattern on your distribution. |
 | Variable | `CLOUDFRONT_DISTRIBUTION_ID` | Distribution ID for invalidation. |
 | Variable | `AWS_REGION` | Optional; default region for the AWS CLI. |
 

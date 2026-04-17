@@ -81,7 +81,7 @@ Manifest shape and behavior are documented in [`code/doc_infra/manifest.py`](cod
 
 ## Status
 
-Manifest generation, Markdown→HTML conversion (`output/html`), and a second-stage browsable site with navigation (`output/site` via `build_site.py` and `ux/`) are implemented. Materialize stage, deploy packaging, link checking, and wiring `site-config.yml` into the site are not implemented yet.
+Manifest generation, Markdown→HTML conversion (`output/html`), and a second-stage browsable site with navigation (`output/site` via `build_site.py` and `ux/`) are implemented. **[`release/publish-site.sh`](release/publish-site.sh)** builds **`output/site`**, **`aws s3 sync`** to your bucket prefix, and invalidates CloudFront. For day-to-day use, put **`export …`** lines in **`release/publish.local`** (gitignored); CI can set the same variables in the environment. Materialize stage, CI deploy, link checking, and wiring `site-config.yml` into the site are not implemented yet.
 
 ## Release notes
 
