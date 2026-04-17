@@ -28,6 +28,7 @@ sources:
     malformed-but-tolerable.html:
     metadata-heavy.html:
     table-variants.html:
+    random-html-1.html:
   infra:
     aws-account-checklist.md:
     custom-domain-requirements.md:
