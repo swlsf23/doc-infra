@@ -24,7 +24,7 @@ def main() -> int:
         "--config",
         type=Path,
         default=None,
-        help=f"Path to config.yml (default: {CONFIG_NAME} next to code/)",
+        help=f"Path to config.yml (default: {CONFIG_NAME} next to build/)",
     )
     args = parser.parse_args()
 

@@ -6,7 +6,7 @@ Placeholder material for internal testing only. No operational, analytical, or e
 
 These keys are **not** authoritative until your schemas lock them in. They illustrate likely separation of concerns.
 
-## `code/config.yml`
+## `build/config.yml`
 
 - `content_root`
 - `output_dir`

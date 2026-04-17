@@ -27,7 +27,7 @@ import argparse
 import sys
 from pathlib import Path
 
-# Running as ``python code/generate_manifest.py`` puts ``code/`` on ``sys.path``.
+# Running as ``python build/generate_manifest.py`` puts ``build/`` on ``sys.path``.
 _CODE_ROOT = Path(__file__).resolve().parent
 if str(_CODE_ROOT) not in sys.path:
     sys.path.insert(0, str(_CODE_ROOT))

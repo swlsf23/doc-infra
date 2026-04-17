@@ -34,9 +34,9 @@ INVALIDATION="/${PREFIX}/*"
 PYTHON=(python3)
 [[ -x "$ROOT/.venv/bin/python" ]] && PYTHON=("$ROOT/.venv/bin/python")
 
-"${PYTHON[@]}" code/generate_manifest.py
-"${PYTHON[@]}" code/convert.py
-"${PYTHON[@]}" code/build_site.py
+"${PYTHON[@]}" build/generate_manifest.py
+"${PYTHON[@]}" build/convert.py
+"${PYTHON[@]}" build/build_site.py
 
 if [[ -n "${AWS_SSO_SESSION:-}" ]]; then
 	aws sso login --sso-session "$AWS_SSO_SESSION"
