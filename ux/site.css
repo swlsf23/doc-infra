@@ -17,10 +17,10 @@
   --doc-complement-bg-strong: rgb(143 77 104 / 0.24);
   --doc-complement-border: rgb(143 77 104 / 0.55);
   /* Current nav node highlight */
-  --doc-current: #1d4ed8;
-  --doc-current-bg: rgb(37 99 235 / 0.14);
-  --doc-current-bg-strong: rgb(37 99 235 / 0.22);
-  --doc-current-border: rgb(37 99 235 / 0.55);
+  --doc-current: #065f46;
+  --doc-current-bg: rgb(4 120 87 / 0.14);
+  --doc-current-bg-strong: rgb(4 120 87 / 0.22);
+  --doc-current-border: rgb(4 120 87 / 0.52);
   /* Caution — amber/yellow (warning stays mauve) */
   --doc-caution: #a16207;
   --doc-caution-bg: rgb(254 252 232 / 0.98);
@@ -428,14 +428,14 @@ body.doc-nav-body .doc-nav {
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
-  margin: 0.08rem 0;
-  padding: 0.28rem 0.45rem 0.28rem 0.4rem;
+  margin: 0.05rem 0;
+  padding: 0.24rem 0.42rem 0.24rem 0.38rem;
   color: var(--doc-text-heading);
   font-weight: 600;
   text-decoration: none;
   background: var(--doc-current-bg);
   border-left: 3px solid var(--doc-current-border);
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 3px 3px 0;
 }
 
 /* Keep current top-level non-expandable node (e.g. Home) aligned with branch labels. */
@@ -453,23 +453,30 @@ body.doc-nav-body .doc-nav {
 .doc-main {
   flex: 1;
   min-width: 0;
-  line-height: 1.6;
-  color: var(--doc-text);
+  line-height: 1.62;
+  color: #5f596b;
 }
 
 .doc-main h1,
 .doc-main h2 {
-  margin-top: 1.25em;
-  margin-bottom: 0.5em;
+  margin-top: 1.45em;
+  margin-bottom: 0.55em;
   line-height: 1.25;
-  color: var(--doc-text-heading);
+  color: #15111f;
   font-weight: 600;
 }
 
 .doc-main h1 {
   margin-top: 0;
-  font-size: clamp(1.45rem, 2.5vw, 1.75rem);
+  margin-bottom: 0.72em;
+  font-size: clamp(1.6rem, 2.9vw, 1.98rem);
+  font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+.doc-main h2 {
+  font-size: clamp(1.14rem, 1.55vw, 1.34rem);
+  color: #262033;
 }
 
 .doc-main ul {
