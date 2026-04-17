@@ -12,8 +12,8 @@ from typing import Any, Optional
 import mistune
 from mistune.renderers.html import HTMLRenderer
 
-from doc_infra.converters.base import DocumentConverter
-from doc_infra.converters.markdown.mistune.directives import directives
+from pipeline.converters.base import DocumentConverter
+from pipeline.converters.markdown.mistune.directives import directives
 
 
 def _emit_static_href(url: str) -> str:

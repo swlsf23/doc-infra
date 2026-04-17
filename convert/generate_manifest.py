@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 r"""Scan Markdown under a configured input directory and write ``manifest.yml``.
 
-See :mod:`doc_infra.manifest` for the ``sources`` tree format and
-:mod:`doc_infra.config` for path resolution.
+See :mod:`pipeline.manifest` for the ``sources`` tree format and
+:mod:`pipeline.config` for path resolution.
 
 Configuration keys are documented in the original module text below.
 
@@ -15,7 +15,7 @@ Configuration keys are documented in the original module text below.
     ``input_dir``.
 
 ``on_existing_manifest`` (str)
-    One of ``overwrite``, ``stop``, or ``append`` (see :func:`doc_infra.manifest.merge_append_tree`).
+    One of ``overwrite``, ``stop``, or ``append`` (see :func:`pipeline.manifest.merge_append_tree`).
 
 ``manifest_version`` (int, optional)
     Written as top-level ``version`` in the output file. Defaults to ``1``.
@@ -27,15 +27,15 @@ import argparse
 import sys
 from pathlib import Path
 
-# Running as ``python build/generate_manifest.py`` puts ``build/`` on ``sys.path``.
+# Running as ``python convert/generate_manifest.py`` puts ``convert/`` on ``sys.path``.
 _CODE_ROOT = Path(__file__).resolve().parent
 if str(_CODE_ROOT) not in sys.path:
     sys.path.insert(0, str(_CODE_ROOT))
 
 from ruamel.yaml import YAML
 
-from doc_infra.config import CONFIG_NAME, load_config, resolve_path
-from doc_infra.manifest import (
+from pipeline.config import CONFIG_NAME, load_config, resolve_path
+from pipeline.manifest import (
     DEFAULT_MANIFEST_VERSION,
     build_manifest_body,
     build_tree_from_disk,

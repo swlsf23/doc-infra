@@ -1,4 +1,4 @@
-# Paths below are relative to this file's directory (build/) unless absolute.
+# Paths below are relative to this file's directory (convert/) unless absolute.
 input_dir: ../content/src
 manifest_path: ../content/manifest.yml
 
@@ -12,7 +12,7 @@ ux_dir: ../ux
 # Set to false to hide the GitHub control entirely.
 site_github_url: "https://github.com/swlsf23/doc-infra"
 
-# Document converter id (see doc_infra.converters.registry)
+# Document converter id (see pipeline.converters.registry)
 converter: markdown
 
 # `::: kind` … `:::` blocks (caution, warning, note). If false, those lines are

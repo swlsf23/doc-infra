@@ -12,8 +12,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from doc_infra.config import CONFIG_NAME, load_config, resolve_path
-from doc_infra.site import build_site
+from pipeline.config import CONFIG_NAME, load_config, resolve_path
+from pipeline.site import build_site
 
 
 def main() -> int:
@@ -24,7 +24,7 @@ def main() -> int:
         "--config",
         type=Path,
         default=None,
-        help=f"Path to config.yml (default: {CONFIG_NAME} next to build/)",
+        help=f"Path to config.yml (default: {CONFIG_NAME} next to convert/)",
     )
     args = parser.parse_args()
 

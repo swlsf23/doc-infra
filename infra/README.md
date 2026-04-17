@@ -18,14 +18,14 @@ Nothing here is required to **build** the site locally. That is still: manifest 
 
 ## Deploy artifact
 
-The upload target is whatever **`site_output_dir`** points to in [`build/config.yml`](../build/config.yml). The default is **`output/site/`** (gitignored as part of `output/`).
+The upload target is whatever **`site_output_dir`** points to in [`convert/config.yml`](../convert/config.yml). The default is **`output/site/`** (gitignored as part of `output/`).
 
 Build pipeline (from repository root, with Python 3.11+ and `pip install -r requirements.txt`):
 
 ```bash
-python build/generate_manifest.py
-python build/convert.py
-python build/build_site.py
+python convert/generate_manifest.py
+python convert/convert.py
+python convert/build_site.py
 ```
 
 Then run **[`release/publish-site.sh`](../release/publish-site.sh)** (with **`release/publish.local`** or env vars set) to sync **`output/site/`** to S3 and invalidate CloudFront.

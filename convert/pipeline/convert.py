@@ -12,7 +12,7 @@ Reads ``input_dir``, ``manifest_path``, ``html_output_dir``, ``converter``,
   nothing.
 
 For each ``*.md`` path in the manifest, writes ``<same-relative-path>.html`` under
-``html_output_dir``, using the configured :class:`~doc_infra.converters.base.DocumentConverter`.
+``html_output_dir``, using the configured :class:`~pipeline.converters.base.DocumentConverter`.
 """
 
 from __future__ import annotations
@@ -22,10 +22,10 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from doc_infra.config import CONFIG_NAME, load_config, resolve_path
-from doc_infra.converters.registry import get_converter
-from doc_infra.html import title_from_markdown_or_path, wrap_fragment_html
-from doc_infra.manifest import collect_paths_from_tree, load_manifest_sources
+from pipeline.config import CONFIG_NAME, load_config, resolve_path
+from pipeline.converters.registry import get_converter
+from pipeline.html import title_from_markdown_or_path, wrap_fragment_html
+from pipeline.manifest import collect_paths_from_tree, load_manifest_sources
 
 
 def md_to_html_path(rel_md: str) -> str:
@@ -113,7 +113,7 @@ def main() -> int:
         "--config",
         type=Path,
         default=None,
-        help=f"Path to config.yml (default: {CONFIG_NAME} next to build/)",
+        help=f"Path to config.yml (default: {CONFIG_NAME} next to convert/)",
     )
     args = parser.parse_args()
 

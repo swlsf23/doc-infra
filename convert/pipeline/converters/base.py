@@ -1,7 +1,7 @@
 """Abstract base for pluggable document converters.
 
-Concrete implementations live under ``doc_infra.converters`` (e.g. Markdown
-backends) and are registered in :mod:`doc_infra.converters.registry`.
+Concrete implementations live under ``pipeline.converters`` (e.g. Markdown
+backends) and are registered in :mod:`pipeline.converters.registry`.
 """
 
 from __future__ import annotations
@@ -15,7 +15,7 @@ class DocumentConverter(ABC):
 
     Subclass this type. Do not instantiate ``DocumentConverter`` itself.
     The build pipeline reads a page file, calls :meth:`convert`, then wraps
-    the returned markup in a minimal HTML5 document (see :mod:`doc_infra.html`).
+    the returned markup in a minimal HTML5 document (see :mod:`pipeline.html`).
     """
 
     @property

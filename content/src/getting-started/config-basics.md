@@ -10,7 +10,7 @@ Configuration is split so authors do not have to touch infrastructure knobs for 
 
 | Layer | Purpose |
 | --- | --- |
-| `build/config.yml` | Paths, plugins, defaults for the build tool |
+| `convert/config.yml` | Paths, plugins, defaults for the build tool |
 | Manifest | What gets built, in what order |
 | `site-config.yml` | Site-wide presentation data |
 

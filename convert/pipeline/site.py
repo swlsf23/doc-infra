@@ -8,8 +8,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
-from doc_infra.manifest import collect_paths_from_tree, load_manifest_sources
-from doc_infra.navigation import md_path_to_html_rel, relative_href, render_nav_html
+from pipeline.manifest import collect_paths_from_tree, load_manifest_sources
+from pipeline.navigation import md_path_to_html_rel, relative_href, render_nav_html
 
 # Single site-wide navigation document (iframe target); links use <base target="_parent">.
 NAV_HTML = "nav.html"

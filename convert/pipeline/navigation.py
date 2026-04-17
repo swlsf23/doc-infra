@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import Any
 
-from doc_infra.manifest import FILES_KEY
+from pipeline.manifest import FILES_KEY
 
 
 def md_path_to_html_rel(md_rel: str) -> str:

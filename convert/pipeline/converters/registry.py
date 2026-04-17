@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from doc_infra.converters.base import DocumentConverter
+from pipeline.converters.base import DocumentConverter
 
 _CONVERTERS: dict[str, type[DocumentConverter]] = {}
 
@@ -37,7 +37,7 @@ def registered_converter_ids() -> tuple[str, ...]:
 
 
 def _load_builtin_converters() -> None:
-    from doc_infra.converters.markdown.mistune.mistune import MistuneMarkdownConverter
+    from pipeline.converters.markdown.mistune.mistune import MistuneMarkdownConverter
 
     register_converter("markdown", MistuneMarkdownConverter)
 
